@@ -1,0 +1,335 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/battle_arena.gd" id="1_battle"]
+[ext_resource type="Texture2D" path="res://assets/sprites/characters/scholar_knight.png" id="2_player"]
+[ext_resource type="Texture2D" path="res://assets/sprites/monsters/corrupted_slime.png" id="3_slime"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ui/aegis_shield.png" id="4_shield"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ui/parchment_box.png" id="5_parchment"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_overlay"]
+bg_color = Color(0.1, 0.12, 0.16, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.65, 0.25, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.8)
+shadow_size = 8
+
+[node name="BattleArena" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_battle")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.09, 0.12, 1)
+
+[node name="ArenaLayout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+
+[node name="TopPanel" type="HBoxContainer" parent="ArenaLayout"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="MonsterInfo" type="VBoxContainer" parent="ArenaLayout/TopPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LabelName" type="Label" parent="ArenaLayout/TopPanel/MonsterInfo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
+theme_override_font_sizes/font_size = 12
+text = "Corrupted Slime"
+
+[node name="LabelTitle" type="Label" parent="ArenaLayout/TopPanel/MonsterInfo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.75, 1)
+theme_override_font_sizes/font_size = 9
+text = "Slime Anomali Indeks (Prolog)"
+
+[node name="BarHP" type="ProgressBar" parent="ArenaLayout/TopPanel/MonsterInfo"]
+custom_minimum_size = Vector2(160, 8)
+layout_mode = 2
+size_flags_horizontal = 0
+value = 100.0
+show_percentage = false
+
+[node name="FragmentCounter" type="HBoxContainer" parent="ArenaLayout/TopPanel"]
+layout_mode = 2
+
+[node name="LabelCount" type="Label" parent="ArenaLayout/TopPanel/FragmentCounter"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "Logic Fragments: 0  |  Gold: 0"
+
+[node name="CombatStage" type="Control" parent="ArenaLayout"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FloorLine" type="ColorRect" parent="ArenaLayout/CombatStage"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.15, 0.17, 0.22, 1)
+
+[node name="PlayerNode" type="Control" parent="ArenaLayout/CombatStage"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 60.0
+offset_top = -68.0
+offset_right = 108.0
+offset_bottom = -20.0
+grow_vertical = 0
+
+[node name="PlayerSprite" type="TextureRect" parent="ArenaLayout/CombatStage/PlayerNode"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_player")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AegisShieldFX" type="TextureRect" parent="ArenaLayout/CombatStage/PlayerNode"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 12.0
+offset_top = -4.0
+offset_right = 60.0
+offset_bottom = 44.0
+texture = ExtResource("4_shield")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MonsterNode" type="Control" parent="ArenaLayout/CombatStage"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -118.0
+offset_top = -68.0
+offset_right = -70.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="MonsterSprite" type="TextureRect" parent="ArenaLayout/CombatStage/MonsterNode"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_slime")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LogPanel" type="PanelContainer" parent="ArenaLayout"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+
+[node name="LabelLog" type="Label" parent="ArenaLayout/LogPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.7, 1)
+theme_override_font_sizes/font_size = 9
+text = "Pertarungan dimulai! Scholar Knight bersiap menghadapi kekacauan."
+autowrap_mode = 2
+
+[node name="BottomPanel" type="HBoxContainer" parent="ArenaLayout"]
+custom_minimum_size = Vector2(0, 78)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PlayerStats" type="VBoxContainer" parent="ArenaLayout/BottomPanel"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="LabelHP" type="Label" parent="ArenaLayout/BottomPanel/PlayerStats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 9
+text = "HP: 100 / 100"
+
+[node name="BarHP" type="ProgressBar" parent="ArenaLayout/BottomPanel/PlayerStats"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+
+[node name="LabelStamina" type="Label" parent="ArenaLayout/BottomPanel/PlayerStats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+theme_override_font_sizes/font_size = 9
+text = "STA: 50 / 50"
+
+[node name="BarStamina" type="ProgressBar" parent="ArenaLayout/BottomPanel/PlayerStats"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+
+[node name="LabelMemory" type="Label" parent="ArenaLayout/BottomPanel/PlayerStats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.7, 1, 1)
+theme_override_font_sizes/font_size = 9
+text = "MEM: 40 / 40"
+
+[node name="BarMemory" type="ProgressBar" parent="ArenaLayout/BottomPanel/PlayerStats"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+
+[node name="ActionMenu" type="VBoxContainer" parent="ArenaLayout/BottomPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="TopActions" type="HBoxContainer" parent="ArenaLayout/BottomPanel/ActionMenu"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="BtnAttack" type="Button" parent="ArenaLayout/BottomPanel/ActionMenu/TopActions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "[1] Tebasan Fisik (10 STA)"
+
+[node name="BtnSpell" type="Button" parent="ArenaLayout/BottomPanel/ActionMenu/TopActions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "[2] Mantra Grimoire (8 MEM)"
+
+[node name="BottomActions" type="HBoxContainer" parent="ArenaLayout/BottomPanel/ActionMenu"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="BtnAnalyze" type="Button" parent="ArenaLayout/BottomPanel/ActionMenu/BottomActions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "[3] Analisis Codex"
+
+[node name="BtnInventory" type="Button" parent="ArenaLayout/BottomPanel/ActionMenu/BottomActions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "[4] Potion HP"
+
+[node name="BtnFlee" type="Button" parent="ArenaLayout/BottomPanel/ActionMenu/BottomActions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+text = "[5] Kabur (40%)"
+
+[node name="QuestionOverlay" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -215.0
+offset_top = -115.0
+offset_right = 215.0
+offset_bottom = 115.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_overlay")
+
+[node name="Margin" type="MarginContainer" parent="QuestionOverlay"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="QuestionOverlay/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="LabelQTitle" type="Label" parent="QuestionOverlay/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
+theme_override_font_sizes/font_size = 11
+text = "[ TP-01 ] - Fondasi Indeks Array"
+horizontal_alignment = 1
+
+[node name="TimerBar" type="ProgressBar" parent="QuestionOverlay/Margin/VBox"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+
+[node name="LabelQBody" type="Label" parent="QuestionOverlay/Margin/VBox"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_font_sizes/font_size = 10
+text = "A = [4, 9, 7, 1]. Berapakah nilai pada indeks A[2]?"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ArrayContainer" type="HBoxContainer" parent="QuestionOverlay/Margin/VBox"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 12
+
+[node name="OptionsGrid" type="GridContainer" parent="QuestionOverlay/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 4
+columns = 2
+
+[node name="LabelFeedback" type="Label" parent="QuestionOverlay/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "Masa Baca: 1.5 dtk..."
+horizontal_alignment = 1
+
+[node name="CombatAnimationPlayer" type="AnimationPlayer" parent="."]

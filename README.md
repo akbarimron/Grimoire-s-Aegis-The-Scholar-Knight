@@ -1,7 +1,8 @@
 # Grimoire's Aegis: The Scholar Knight (*The Order of Lost Indexes*)
 
-> **2D Turn-Based RPG / Educational Puzzle Adventure / Fantasy Dungeon Crawler**  
-> **Engine:** Godot Engine 4.7+ (GDScript 2.0, 16-Bit Pixel Art `1280x720`)  
+> **2D Turn-Based RPG / Educational Puzzle Adventure / Labyrinth Board & Dungeon Crawler**  
+> **Engines:** **Unity 6 (`6000.3.7f1`, URP 2D — `Grimoire's Aegis/`)** & **Godot Engine 4.7+**  
+> **Art & Gameplay Reference:** Pixel-Art Region-Shaded Pipeline & Labyrinth Board Architecture (`Lost in Multiverse RPG`)  
 > **Mata Kuliah:** Pengembangan Alat Permainan Edukatif — **Kelompok 3**
 
 ---
@@ -11,7 +12,7 @@
 | Nama Mahasiswa | NIM | Peran |
 | :--- | :---: | :--- |
 | **Ariel Hidayatul Faqih** | `2401265` | Game Designer & Systems Balancing |
-| **Muhammad Akbar Imron** | `2400000` | Lead Programmer & Engine Architect |
+| **Muhammad Akbar Imron** | `2404565` | Lead Programmer & Engine Architect |
 | **Muhammad Raditya Santosa** | `2409461` | Gameplay & UI/UX Programmer |
 | **Khairatul Husna Tartila** | `2400494` | Instructional Designer & Curriculum Specialist |
 | **Septin Sehawati** | `2400923` | QA Lead, Art Direction & Educational Analytics |
@@ -49,9 +50,18 @@ Di kerajaan **Technosophia**, perpustakaan agung **The Grand Library of Alexandr
 
 ---
 
-## Cara Menjalankan Proyek (Godot 4.7+)
+## Cara Menjalankan Proyek (Unity 6 — `Grimoire's Aegis/` & Godot 4.7+)
 
-1. Buka **Godot Engine 4.7+** dan pilih **Import** pada file `project.godot` di direktori ini, lalu tekan **F5 (Run Project)**.
+### A. Menjalankan di Unity 6 (`6000.3.7f1` — Direkomendasikan)
+1. Buka **Unity Hub**, tambahkan proyek dari folder **`Grimoire's Aegis/`**, lalu buka dengan **Unity 6 (`6000.3.7f1`)**.
+2. Buka scene **`Assets/Scenes/SampleScene.unity`** (telah dilengkapi `GrimoireGameManager` & `GrimoirePixelStagePreview`), lalu tekan tombol **Play (▶)**.
+3. Untuk meregenerasi seluruh **106 aset Pixel Art & Audio Chiptune WAV** (`Assets/Resources/Gen/` & `assets/gen/`) dengan pipeline bergaya *Lost in Multiverse RPG*:
+   ```powershell
+   python tools/build_grimoire_assets.py
+   ```
+
+### B. Menjalankan di Godot 4.7+
+1. Buka **Godot Engine 4.7+** dan pilih **Import** pada file `project.godot` di direktori root ini, lalu tekan **F5 (Run Project)**.
 2. Untuk memverifikasi melalui terminal (*headless*):
    ```powershell
    Godot_v4.7.2-stable_win64_console.exe --headless --quit --path .

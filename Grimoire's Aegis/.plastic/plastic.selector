@@ -1,0 +1,4 @@
+repository "Grimoire-s Aegis/Grimoire-s Aegis@18968280296701@cloud"
+  path "/"
+    br "/main"
+    co "/main"

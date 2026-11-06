@@ -91,7 +91,7 @@ namespace GrimoireAegis.Core
                     intro = "Sayap barat Perpustakaan Agung Alexandria-Nova dipenuhi rak buku raksasa yang kehilangan nomor indeksnya.\nGunakan Linear Search pada data acak dan Binary Search pada rak yang telah terurut!",
                     gridW = 6, gridH = 4,
                     rimColor = new Color(0.91f, 0.77f, 0.16f),
-                    regularEnemies = new[] { "corrupted_slime", "lost_wisp", "bookworm_horror" },
+                    regularEnemies = new[] { "corrupted_slime", "ink_zombie", "paper_bat", "lost_wisp", "bookworm_horror" },
                     eliteEnemies = new[] { "twin_faced_librarian" },
                     bossId = "the_blind_archivist",
                     musicKey = "music_s1"
@@ -106,7 +106,7 @@ namespace GrimoireAegis.Core
                     intro = "Ruang bawah tanah tempat prasasti batu kuno runtuh dan bercampur aduk.\nSusun kembali pilar angka menggunakan Bubble Sort, Selection Sort, dan Insertion Sort!",
                     gridW = 7, gridH = 4,
                     rimColor = new Color(0.38f, 0.78f, 0.72f),
-                    regularEnemies = new[] { "skeleton_archer", "venomous_arachnid", "grave_digger" },
+                    regularEnemies = new[] { "bone_soldier", "skeleton_archer", "crypt_ghoul", "venomous_arachnid", "grave_digger" },
                     eliteEnemies = new[] { "grave_digger" },
                     bossId = "the_abyss_golem",
                     musicKey = "music_s2"
@@ -121,7 +121,7 @@ namespace GrimoireAegis.Core
                     intro = "Puncak menara tempat Entropy, The Chaos King bersemayam.\nKuasai algoritma Divide & Conquer (Merge Sort & Quick Sort) serta evaluasi kompleksitas Big-O!",
                     gridW = 7, gridH = 5,
                     rimColor = new Color(0.61f, 0.36f, 0.83f),
-                    regularEnemies = new[] { "hydra_of_division", "pivot_wraith" },
+                    regularEnemies = new[] { "glitch_imp", "crystal_beetle", "hydra_of_division", "pivot_wraith" },
                     eliteEnemies = new[] { "the_sphinx_of_entropy" },
                     bossId = "entropy_chaos_king",
                     musicKey = "music_s3"
@@ -132,14 +132,20 @@ namespace GrimoireAegis.Core
         public static readonly string[] MonsterOrder = new[]
         {
             "corrupted_slime",
+            "ink_zombie",
+            "paper_bat",
             "lost_wisp",
             "bookworm_horror",
             "twin_faced_librarian",
             "the_blind_archivist",
+            "bone_soldier",
             "skeleton_archer",
+            "crypt_ghoul",
             "venomous_arachnid",
             "grave_digger",
             "the_abyss_golem",
+            "glitch_imp",
+            "crystal_beetle",
             "hydra_of_division",
             "pivot_wraith",
             "the_sphinx_of_entropy",
@@ -148,6 +154,60 @@ namespace GrimoireAegis.Core
 
         public static readonly Dictionary<string, MonsterDef> Monsters = new Dictionary<string, MonsterDef>
         {
+            {
+                "ink_zombie", new MonsterDef {
+                    id = "ink_zombie", name = "Zombi Tinta", act = 1, role = "Regular",
+                    hp = 55, atk = 11, def = 3, exp = 30, gold = 22,
+                    tpPool = new[] { "TP-01", "TP-02" }, statusEffect = "none",
+                    mechanicDesc = "Menyeret langkah dan mencakar dari depan: telusuri array dari indeks 0.",
+                    lore = "Pustakawan yang tenggelam di tinta Glitch. Buku di pinggangnya masih terantai."
+                }
+            },
+            {
+                "paper_bat", new MonsterDef {
+                    id = "paper_bat", name = "Kelelawar Kertas", act = 1, role = "Regular",
+                    hp = 40, atk = 12, def = 2, exp = 28, gold = 20,
+                    tpPool = new[] { "TP-01", "TP-03" }, statusEffect = "none",
+                    mechanicDesc = "Menukik cepat dari atas rak: soal indeks dan data yang tidak ada.",
+                    lore = "Dilipat dari halaman katalog yang robek. Jeritannya berbunyi seperti kertas disobek."
+                }
+            },
+            {
+                "bone_soldier", new MonsterDef {
+                    id = "bone_soldier", name = "Prajurit Tulang", act = 2, role = "Regular",
+                    hp = 85, atk = 18, def = 9, exp = 70, gold = 48,
+                    tpPool = new[] { "TP-06", "TP-07" }, statusEffect = "none",
+                    mechanicDesc = "Mengayunkan pedang berkarat di balik perisai retak: lacak pass Bubble dan Selection Sort.",
+                    lore = "Prajurit benteng yang tulangnya tersusun ulang secara acak oleh kutukan."
+                }
+            },
+            {
+                "crypt_ghoul", new MonsterDef {
+                    id = "crypt_ghoul", name = "Ghoul Kripta", act = 2, role = "Regular",
+                    hp = 90, atk = 21, def = 6, exp = 80, gold = 52,
+                    tpPool = new[] { "TP-07", "TP-08" }, statusEffect = "none",
+                    mechanicDesc = "Merayap lalu menerkam: lacak Selection dan Insertion Sort.",
+                    lore = "Merangkak di antara peti mati, mencari tulang yang belum terurut."
+                }
+            },
+            {
+                "glitch_imp", new MonsterDef {
+                    id = "glitch_imp", name = "Imp Glitch", act = 3, role = "Regular",
+                    hp = 150, atk = 26, def = 10, exp = 150, gold = 95,
+                    tpPool = new[] { "TP-09", "TP-10" }, statusEffect = "none",
+                    mechanicDesc = "Melempar bola glitch sambil tertawa: soal Merge dan Quick Sort.",
+                    lore = "Makhluk kecil dari piksel yang rusak. Ia suka mengacak apa pun yang sudah rapi."
+                }
+            },
+            {
+                "crystal_beetle", new MonsterDef {
+                    id = "crystal_beetle", name = "Kumbang Kristal", act = 3, role = "Regular",
+                    hp = 175, atk = 27, def = 16, exp = 170, gold = 105,
+                    tpPool = new[] { "TP-10", "TP-12" }, statusEffect = "none",
+                    mechanicDesc = "Menyeruduk dengan tanduk kristal: soal Quick Sort dan Big-O.",
+                    lore = "Kristal ungu tumbuh di punggungnya setiap kali menara terbelah lagi."
+                }
+            },
             {
                 "corrupted_slime", new MonsterDef {
                     id = "corrupted_slime", name = "Corrupted Slime", act = 1, role = "Regular",

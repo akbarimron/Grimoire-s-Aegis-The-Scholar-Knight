@@ -77,6 +77,17 @@ Sheet disimpan sebagai strip horizontal di `Resources/Gen/anim/`, `vfx/`, `npc/`
 
 Mode dipilih saat *Petualangan Baru* dan bisa diganti kapan saja di **Pengaturan [O]** (juga: pengali timer 1.0–2.0×, DDA on/off, getar layar, volume).
 
+### Alur permainan (revisi)
+1. **Judul** → pilih kesulitan → Lyra membuka cerita dalam beberapa kalimat singkat → kartu Act.
+2. **Peta petualangan** (`Core/AdventureMap.cs`): satu peta besar yang dirancang manual per Act, bergulir mengikuti Aegis. Lempar dadu, Aegis berjalan sendiri, dan di persimpangan pemain memilih arah. Monster berdiri di jalan dan menghentikan langkah.
+3. **Gerbang boss butuh 3 Kunci Indeks**: dari *Penjaga Kunci* (elite), *Rak Terkunci* (teka-teki tanpa batas waktu, GDD §4), dan *Peti Tersembunyi*. Tidak ada lagi jalan pintas ke boss.
+4. **Pertarungan**: 4 aksi besar (Serang, Mantra, Ramuan, Kabur); mantra terbuka bertahap per Act; klik nama monster untuk info. Tidak ada catatan pertarungan panjang, hanya satu baris pesan.
+5. **Menjawab soal**: pilih jawaban → perkamen menutup → **monster menyerang dulu** (ditangkis atau kena) → baru muncul kartu singkat: BENAR / KURANG TEPAT, jawaban yang benar, dan satu kalimat pembahasan.
+6. Lyra muncul hanya pada momen penting (langkah pertama, pertarungan pertama, soal pertama, kunci, gerbang, boss, Act selesai).
+
+### Monster biasa (kroco) baru
+Zombi Tinta & Kelelawar Kertas (Act I), Prajurit Tulang & Ghoul Kripta (Act II), Imp Glitch & Kumbang Kristal (Act III), masing-masing dengan animasi idle, serang, skill, terluka, mati, dan muncul (`tools/grimoire_minions_v2.py`). Total kini 19 monster.
+
 ### GUI bergaya *Lost in Multiverse RPG*
 Semua layar digambar di kanvas piksel **640×360** yang diperbesar dengan skala bulat (tajam di layar apa pun), memakai font piksel 5×7 dan panel 9-slice (`tools/grimoire_ui_v2.py`, `UI/PixelUI.cs`):
 - **Judul** → pilih kesulitan / Act → **kartu Act** → **papan labirin** (dadu beranimasi, token berjalan, tooltip petak) → **pertarungan** (panel Kondisi kiri-atas, papan nama + HP monster, HUD 3 kolom: potret & bar, daftar aksi berikon, catatan pertarungan).

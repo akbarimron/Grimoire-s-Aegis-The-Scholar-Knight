@@ -45,7 +45,7 @@ namespace GrimoireAegis.UI
             {
                 case ModalOverlay.Guide: n = GuideChapters.Length; break;
                 case ModalOverlay.CodexBestiary: n = _codexTab == 0 ? GrimoireDatabase.Codex.Count : GrimoireDatabase.MonsterOrder.Length; break;
-                case ModalOverlay.Pause: n = 4; break;
+                case ModalOverlay.Pause: n = PauseItems.Length; break;
             }
             if (n > 0)
             {
@@ -61,19 +61,21 @@ namespace GrimoireAegis.UI
         // =====================================================================
         // PAUSE
         // =====================================================================
-        private static readonly string[] PauseItems = { "Lanjutkan", "Buku Panduan", "Pengaturan", "Kembali ke Judul" };
+        private static readonly string[] PauseItems = { "Lanjutkan", "Tas & Perlengkapan", "Codex & Bestiary", "Buku Panduan", "Pengaturan", "Laporan Guru", "Kembali ke Judul" };
 
         private void PauseAction(int i)
         {
             switch (i)
             {
                 case 0: activeModal = ModalOverlay.None; break;
-                case 1: activeModal = ModalOverlay.Guide; _listSel = 0; break;
-                case 2: activeModal = ModalOverlay.Settings; break;
-                case 3:
+                case 1: activeModal = ModalOverlay.ShopInventory; _shopTab = 1; _modalScroll = 0; break;
+                case 2: activeModal = ModalOverlay.CodexBestiary; _listSel = 0; break;
+                case 3: activeModal = ModalOverlay.Guide; _listSel = 0; break;
+                case 4: activeModal = ModalOverlay.Settings; break;
+                case 5: activeModal = ModalOverlay.TeacherAnalytics; break;
+                case 6:
                     activeModal = ModalOverlay.None;
                     _scheduled.Clear();
-                    if (viewMode == GameViewMode.Battle) viewMode = GameViewMode.Board;   // run is kept; "Lanjutkan" resumes
                     viewMode = GameViewMode.Title; _titleMode = 0;
                     GrimoireAudioManager.Instance?.PlayMusic("music_title");
                     break;
@@ -100,7 +102,7 @@ namespace GrimoireAegis.UI
         // =====================================================================
         private static readonly string[] GuideChapters =
         {
-            "Selamat Datang", "Kontrol", "Alur Permainan", "Papan Labirin", "Pertarungan", "Active Defend",
+            "Selamat Datang", "Kontrol", "Alur Permainan", "Peta Petualangan", "Pertarungan", "Menangkis Serangan",
             "Mode Kesulitan", "Status Effect", "Monster", "Mantra Grimoire", "Item & Perlengkapan", "Format Soal", "Untuk Guru"
         };
 
@@ -117,45 +119,50 @@ namespace GrimoireAegis.UI
             switch (ch)
             {
                 case 0:
-                    L.Add(new GuideItem("Grimoire's Aegis: The Scholar Knight", "Kerajaan Algoria runtuh: Raja Iblis Entropy menghancurkan Katalog Agung dan menyebarkan kutukan The Glitch yang mengacak urutan dunia. Kamu adalah Aegis, ksatria cendekia pemula dari Ordo Sintaksis, bersenjata pedang tumpul, perisai Aegis, dan Grimoire berisi algoritma.", null, "hero_idle"));
-                    L.Add(new GuideItem("Tujuan", "Jelajahi 3 Act, kalahkan 13 monster, dan pulihkan Katalog Agung. Setiap serangan musuh hanya bisa ditangkis dengan menjawab soal Searching atau Sorting."));
-                    L.Add(new GuideItem("Act I - The Dusty Archives", "Linear Search & Binary Search (TP-01 s/d TP-05).", "tiles/icon_enemy"));
-                    L.Add(new GuideItem("Act II - The Catacombs of Chaos", "Bubble, Selection & Insertion Sort (TP-06 s/d TP-09).", "tiles/icon_elite"));
-                    L.Add(new GuideItem("Act III - The Tower of Entropy", "Merge Sort, Quick Sort & Big-O (TP-10 s/d TP-12).", "tiles/icon_boss"));
-                    L.Add(new GuideItem("Tokoh", "{#7ff0d0}Archivist Lyra{/} penjaga Codex. {#ffd86a}Mordecai{/} pandai besi & pedagang. {#7ff0d0}Bayang-bayang Ordo{/} arwah ksatria yang menolongmu saat kesulitan.", null, "npc_lyra_idle"));
+                    L.Add(new GuideItem("Grimoire's Aegis", "Raja Entropy menghancurkan Katalog Agung dan mengacak urutan dunia Algoria. Kamu adalah Aegis, ksatria cendekia yang menangkis kekacauan dengan logika.", null, "hero_idle"));
+                    L.Add(new GuideItem("Tujuan", "Lewati 3 Act. Di tiap Act, kumpulkan 3 Kunci Indeks, buka gerbang, lalu kalahkan boss."));
+                    L.Add(new GuideItem("Act I - " + ActName(1), ActTopic(1), "tiles/icon_enemy"));
+                    L.Add(new GuideItem("Act II - " + ActName(2), ActTopic(2), "tiles/icon_elite"));
+                    L.Add(new GuideItem("Act III - " + ActName(3), ActTopic(3), "tiles/icon_boss"));
+                    L.Add(new GuideItem("Lyra", "Penjaga katalog terakhir. Ia muncul saat kamu butuh petunjuk.", null, "npc_lyra_idle"));
                     break;
                 case 1:
-                    L.Add(new GuideItem("Umum", "{#ffd86a}Panah / WASD{/} pilih  -  {#ffd86a}Enter / Spasi{/} konfirmasi  -  {#ffd86a}Esc{/} kembali / jeda  -  Mouse bisa dipakai untuk semua tombol."));
-                    L.Add(new GuideItem("Jendela", "{#ffd86a}G{/} Buku Panduan  -  {#ffd86a}C{/} Codex & Bestiary  -  {#ffd86a}I{/} Tas & Toko  -  {#ffd86a}T{/} Laporan Guru  -  {#ffd86a}O{/} Pengaturan"));
-                    L.Add(new GuideItem("Papan", "{#ffd86a}Spasi{/} lempar dadu  -  {#ffd86a}Panah{/} melangkah ke petak tetangga  -  {#ffd86a}Enter{/} berhenti dan buka petak."));
-                    L.Add(new GuideItem("Pertarungan", "{#ffd86a}1-5{/} pilih aksi cepat  -  saat soal muncul: {#ffd86a}1-4{/} pilih jawaban, {#ffd86a}H{/} Scholar's Hint."));
+                    L.Add(new GuideItem("Peta", "{#ffd86a}Spasi{/} lempar dadu. Di persimpangan pilih arah dengan {#ffd86a}panah{/} atau klik."));
+                    L.Add(new GuideItem("Pertarungan", "{#ffd86a}1-4{/} pilih aksi. Saat soal muncul, {#ffd86a}1-4{/} pilih jawaban dan {#ffd86a}H{/} untuk petunjuk."));
+                    L.Add(new GuideItem("Menu", "{#ffd86a}Esc{/} membuka menu: tas, Codex, panduan, pengaturan, laporan guru. {#ffd86a}G{/} langsung ke panduan."));
                     break;
                 case 2:
-                    L.Add(new GuideItem("Loop besar (per lantai)", "Persiapan di toko -> jelajah papan labirin dengan dadu -> bertarung -> hadiah (EXP, Gold, Logic Fragment) -> boss Act -> Act berikutnya."));
-                    L.Add(new GuideItem("Loop kecil (per giliran)", "Giliranmu: pilih aksi tanpa batas waktu. Giliran musuh: soal muncul; jawabanmu menentukan Perfect Guard, Guard, atau Break."));
-                    L.Add(new GuideItem("Kenapa harus paham?", "Soal dibuat ulang oleh generator setiap kali muncul (angka acak), jadi jawaban tidak bisa dihafal. Pengecoh dibuat dari miskonsepsi nyata, misalnya \"indeks mulai dari 1\"."));
+                    L.Add(new GuideItem("Di peta", "Lempar dadu, jelajahi jalan, kalahkan monster yang menghadang, dan kumpulkan 3 Kunci Indeks."));
+                    L.Add(new GuideItem("Saat bertarung", "Giliranmu: serang atau rapal mantra. Giliran monster: jawab soal untuk menangkis."));
+                    L.Add(new GuideItem("Soal selalu baru", "Angka di setiap soal diacak ulang, jadi kamu perlu paham caranya, bukan menghafal jawabannya."));
                     break;
                 case 3:
-                    foreach (BoardTileType t in System.Enum.GetValues(typeof(BoardTileType)))
-                        L.Add(new GuideItem(TileName(t), TileDesc(t), "tiles/" + TileIconKey(new BoardTileNode { type = t })));
-                    L.Add(new GuideItem("Kabut", "Petak yang belum terlihat ditutupi kabut. Melangkah membuka petak di sekitarmu.", "tiles/fog"));
+                    L.Add(new GuideItem("Kunci Indeks", "Gerbang boss butuh 3 kunci: dari Penjaga Kunci, Rak Terkunci, dan Peti Tersembunyi.", "icons/key"));
+                    L.Add(new GuideItem("Gerbang Boss", "Selama kunci belum lengkap, jalan ke boss tertutup.", "world/gate_0"));
+                    foreach (NodeType t in new[] { NodeType.Enemy, NodeType.Elite, NodeType.Puzzle, NodeType.KeyChest, NodeType.Treasure, NodeType.Rest, NodeType.Shrine, NodeType.Merchant, NodeType.Event, NodeType.Trap })
+                    {
+                        string icon = t == NodeType.Enemy ? "tiles/icon_enemy" : t == NodeType.Elite ? "tiles/icon_elite" : t == NodeType.Puzzle ? "tiles/icon_puzzle" :
+                                      t == NodeType.KeyChest || t == NodeType.Treasure ? "tiles/icon_treasure" : t == NodeType.Rest ? "tiles/icon_rest" :
+                                      t == NodeType.Shrine ? "tiles/icon_shrine" : t == NodeType.Merchant ? "tiles/icon_merchant" : t == NodeType.Event ? "tiles/icon_event" : "tiles/icon_trap";
+                        L.Add(new GuideItem(AdventureMaps.NodeName(t), AdventureMaps.NodeDesc(t), icon));
+                    }
+                    L.Add(new GuideItem("Monster menghadang", "Monster di peta menghentikan langkahmu. Kalau kabur, Aegis mundur selangkah."));
                     break;
                 case 4:
-                    L.Add(new GuideItem("Serang", "Tebasan pedang: damage = ATK - DEF musuh. Mengisi 12 Focus.", "icons/cmd_attack"));
-                    L.Add(new GuideItem("Grimoire", "Mantra algoritma. Jawab soal topik mantra dengan benar untuk merapal; salah = mantra gagal (fizzle). Damage x(1 + INT/40); x1.5 bila mengenai kelemahan yang sudah di-Analisis.", "icons/cmd_spell"));
-                    L.Add(new GuideItem("Item", "Pakai ramuan dari tas. Memakai satu giliran.", "icons/cmd_item"));
-                    L.Add(new GuideItem("Analisis", "Melihat topik soal, pola serangan, efek gagal, dan kelemahan musuh. Tersimpan di Bestiary. Memakai satu giliran.", "icons/cmd_analyze"));
-                    L.Add(new GuideItem("Kabur", "Peluang 40% (+10% Boots of Swiftness). Tidak bisa melawan boss.", "icons/cmd_flee"));
-                    L.Add(new GuideItem("Focus & Limit Break", "Focus terisi dari serangan dan Perfect Guard. Saat 100%, mantra ORDER RESTORED bisa dirapal: 3.6x damage murni, +30% HP, hapus semua debuff, dan musuh menjadi Terurut.", "icons/focus"));
+                    L.Add(new GuideItem("Serang", "Tebasan pedang. Mengisi Focus.", "icons/cmd_attack"));
+                    L.Add(new GuideItem("Mantra", "Jawab soal topik mantra untuk merapalnya. Memakai MP. Mantra baru terbuka di setiap Act.", "icons/cmd_spell"));
+                    L.Add(new GuideItem("Ramuan", "Pulihkan HP atau MP. Memakai satu giliran.", "icons/cmd_item"));
+                    L.Add(new GuideItem("Kabur", "Mundur dari monster biasa. Tidak bisa dari penjaga kunci dan boss.", "icons/cmd_flee"));
+                    L.Add(new GuideItem("Info monster", "Klik nama monster untuk melihat topik soal dan mantra yang ampuh.", "icons/cmd_analyze"));
+                    L.Add(new GuideItem("Focus", "Saat bar Focus penuh, mantra ORDER RESTORED muncul: serangan terkuat dan menghapus semua efek buruk.", "icons/focus"));
                     break;
                 case 5:
-                    L.Add(new GuideItem("Urutan kejadian", "Musuh mengayun lalu membeku (bullet-time) -> perkamen soal muncul -> {#ffd86a}masa baca 1,5 detik{/} (timer belum jalan) -> timer berjalan; saat sisa 30% tepi layar berdenyut merah -> jawab -> hasil + pembahasan."));
-                    L.Add(new GuideItem("PERFECT GUARD", "Benar dengan sisa waktu >= 60%: 0 damage, serangan balik, +1 Logic Fragment, +25 Focus, Panik -1. \"AEGIS ACTIVE!\"", "status/ward"));
-                    L.Add(new GuideItem("GUARD", "Benar tetapi lambat: perisai menahan serangan, 0 damage, +10 Focus.", "icons/def"));
-                    L.Add(new GuideItem("BREAK", "Salah atau waktu habis: damage = min(3 x ATK musuh - DEF, 50% HP maks) + 1 Panik + efek khusus monster.", "status/panic"));
-                    L.Add(new GuideItem("Serangan beruntun", "Skeleton Archer menembak 3 panah (3 soal, masing-masing 1/3 damage). Bookworm Horror menggigit 2 kali."));
-                    L.Add(new GuideItem("Scholar's Hint", "Membuang 1 pilihan salah (2 dengan Monocle) seharga 10 MP (5 MP di mode Mudah).", "icons/cmd_hint"));
-                    L.Add(new GuideItem("Mercy System", "Salah 3x berturut-turut pada TP yang sama, atau HP habis: Bayang-bayang Ordo memulihkan HP/MP dan menampilkan Kilas Codex. Tanpa penalti.", null, "npc_shade_idle"));
+                    L.Add(new GuideItem("Cara kerjanya", "Monster bersiap menyerang, lalu soal muncul. Pilih jawabanmu, dan lihat apa yang terjadi: perisai menahan serangan, atau seranganmu tertembus. Setelah itu baru terlihat jawaban yang benar."));
+                    L.Add(new GuideItem("Benar dan cepat", "Serangan ditangkis dan Aegis langsung membalas. +1 Logic Fragment.", "status/ward"));
+                    L.Add(new GuideItem("Benar tapi lambat", "Perisai menahan serangan, tanpa damage.", "icons/def"));
+                    L.Add(new GuideItem("Salah", "Kamu terkena damage, kadang juga efek buruk. Baca pembahasannya, soal berikutnya angkanya berbeda.", "status/panic"));
+                    L.Add(new GuideItem("Petunjuk", $"Buang 1 jawaban salah dengan MP.", "icons/cmd_hint"));
+                    L.Add(new GuideItem("Bayang-bayang Ordo", "Kalau salah 3 kali di topik yang sama atau HP habis, ia menolong dan menjelaskan ulang materinya.", null, "npc_shade_idle"));
                     break;
                 case 6:
                     L.Add(new GuideItem("MUDAH", GrimoireStatus.DifficultyDesc(Difficulty.Easy), "icons/heart_full"));
@@ -275,7 +282,7 @@ namespace GrimoireAegis.UI
 
         private void DrawCodexBestiary()
         {
-            ModalFrame(_codexTab == 0 ? "CODEX GRIMOIRE  -  12 Tujuan Pembelajaran" : "BESTIARY  -  13 Monster");
+            ModalFrame(_codexTab == 0 ? "CODEX GRIMOIRE  -  12 Tujuan Pembelajaran" : "BESTIARY  -  19 Monster");
             if (Button(new Rect(ModalRect.x + 300, ModalRect.y + 6, 100, 16), "Codex", "icons/cmd_spell", true, _codexTab == 0, align: 1)) { _codexTab = 0; _listSel = 0; }
             if (Button(new Rect(ModalRect.x + 404, ModalRect.y + 6, 100, 16), "Bestiary", "icons/skull", true, _codexTab == 1, align: 1)) { _codexTab = 1; _listSel = 0; }
 
@@ -454,7 +461,7 @@ namespace GrimoireAegis.UI
             Text(top.x + 210, top.y + 7, $"Rata-rata waktu: {avgT:F1} dtk", Ink);
             Text(top.x + 360, top.y + 7, $"Mode: {GrimoireStatus.DifficultyName(difficulty)}  DDA: {(ddaEnabled ? ddaTier : "off")}", Ink);
             int pg = telemetryLog.Count(r => r.defenceGrade == "PERFECT GUARD");
-            Text(top.x + 8, top.y + 21, $"Perfect Guard: {pg}   Codex dibuka: {codexOpened.Count}/12   Monster dikenal: {monstersSeen.Count}/13   Logic Fragment: {logicFragments}", Dim);
+            Text(top.x + 8, top.y + 21, $"Perfect Guard: {pg}   Codex dibuka: {codexOpened.Count}/12   Monster dikenal: {monstersSeen.Count}/{GrimoireDatabase.MonsterOrder.Length}   Logic Fragment: {logicFragments}", Dim);
             if (Button(new Rect(top.xMax - 104, top.y + 18, 98, 16), "Ekspor CSV", "icons/cmd_item", total > 0, false, "gold"))
             {
                 string csv = ProceduralQuestionEngine.ExportTelemetryToCsv(telemetryLog);
@@ -464,7 +471,22 @@ namespace GrimoireAegis.UI
                 GrimoireAudioManager.Instance?.PlaySfx("levelup");
             }
 
-            Rect tbl = new Rect(ModalRect.x + 8, ModalRect.y + 74, ModalRect.width - 16, ModalRect.height - 82);
+            // teacher shortcut: start a lesson straight at the Act being taught
+            if (viewMode != GameViewMode.Battle)
+            {
+                Text(ModalRect.x + 300, ModalRect.yMax - 20, "Mulai langsung:", Dim);
+                for (int act = 1; act <= 3; act++)
+                {
+                    int a2 = act;
+                    if (Button(new Rect(ModalRect.x + 380 + (act - 1) * 72, ModalRect.yMax - 24, 66, 16), $"Act {ActRoman(act)}", null, true, false, align: 1))
+                    {
+                        if (!runStarted) { runStarted = true; _seenTips.Add("board"); }
+                        StartActExpedition(a2);
+                    }
+                }
+            }
+
+            Rect tbl = new Rect(ModalRect.x + 8, ModalRect.y + 74, ModalRect.width - 16, ModalRect.height - 110);
             Panel(tbl, "dark");
             float y = tbl.y + 6;
             Text(tbl.x + 8, y, "TP", Dim); Text(tbl.x + 52, y, "Topik", Dim); Text(tbl.x + 250, y, "Akurasi", Dim); Text(tbl.x + 370, y, "Soal", Dim); Text(tbl.x + 404, y, "Waktu", Dim); Text(tbl.x + 444, y, "Miskonsepsi tersering", Dim);

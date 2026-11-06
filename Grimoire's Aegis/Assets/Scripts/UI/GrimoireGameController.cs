@@ -20,12 +20,13 @@ namespace GrimoireAegis.UI
         PlayerCommand,
         SpellSelect,
         ItemSelect,
-        AlgorithmicChallenge, // Spell verification or Active Defend question
-        TurnResolution,
+        AlgorithmicChallenge, // the question is on screen
+        Revealing,            // answer locked in: the attack plays out before anything is said
+        TurnResolution,       // short "benar / kurang tepat" card
         MercyIntervention,
-        Animating,            // an attack / death sequence is playing; input is locked
-        Analyze,              // GDD §6 Analyze: monster dossier
-        BattleWon             // rewards summary
+        Animating,            // input locked while a sequence plays
+        Analyze,              // monster info card (free, from clicking the nameplate)
+        BattleWon
     }
 
     public enum ModalOverlay
@@ -40,8 +41,8 @@ namespace GrimoireAegis.UI
     }
 
     /// <summary>
-    /// Game state + board exploration. Battle rules live in GrimoireBattle.cs,
-    /// all drawing in GrimoireScreens.cs (partial class).
+    /// Game state + adventure board. Battle rules: GrimoireBattle.cs. Story/tutorial: GrimoireDialog.cs.
+    /// Drawing: GrimoireScreens.cs / GrimoireModals.cs (partial class).
     /// </summary>
     public partial class GrimoireGameController : MonoBehaviour
     {
@@ -77,21 +78,18 @@ namespace GrimoireAegis.UI
         public List<string> ownedEquipment = new List<string> { "blade_lv1" };
         public Dictionary<string, int> consumables = new Dictionary<string, int>
         {
-            { "pot_hp", 3 },
-            { "pot_mp", 2 },
-            { "scroll_clarity", 1 },
-            { "golden_die", 1 }
+            { "pot_hp", 3 }, { "pot_mp", 2 }, { "scroll_clarity", 1 }
         };
 
         // --- Difficulty & accessibility (GDD §12, §17) ---
         public Difficulty difficulty = Difficulty.Medium;
-        public float timerMultiplier = 1f;      // 1.0 / 1.25 / 1.5 / 2.0
+        public float timerMultiplier = 1f;
         public bool accessibilityNoShake = false;
         public bool ddaEnabled = true;
         public bool runStarted = false;
 
         // --- DDA & Learning Telemetry State ---
-        public string ddaTier = "Standard"; // "Assisted", "Standard", "Mastery"
+        public string ddaTier = "Standard";
         public int consecutiveCorrect = 0;
         public int consecutiveWrong = 0;
         public Dictionary<string, int> tpFailStreaks = new Dictionary<string, int>();
@@ -101,26 +99,34 @@ namespace GrimoireAegis.UI
         public readonly HashSet<string> monstersAnalyzed = new HashSet<string>();
         public readonly HashSet<string> codexOpened = new HashSet<string>();
 
-        // --- Labyrinth Board State ---
+        // --- Adventure board ---
         public int currentAct = 1;
-        public LabyrinthBoardData board;
-        public int currentTileId = 0;
-        public int diceValue = 1;
+        public AdventureMap map;
+        public int currentNode;
+        private int _prevNode = -1;
         public int stepsRemaining = 0;
-        public bool forceGoldenDie = false;
-        public string boardBannerMessage = "Lempar dadu [Spasi] untuk menjelajahi labirin perpustakaan!";
+        public int diceValue = 1;
+        public int keysCollected = 0;
+        public string boardMessage = "";
+        private readonly List<int> _choices = new List<int>();   // next nodes at a fork
         private float _diceRollUntil;
         private float _actIntroStart;
+        private bool _walking;
+
+        // --- Board puzzle (GDD §4: no timer, no damage) ---
+        [NonSerialized] public QuestionPayload puzzleQuestion;   // Unity would auto-create serializable public fields
+        private MapNode _puzzleNode;
+        private int _puzzleChosen = -1;   // -1 asking; otherwise the picked option
+        public bool PuzzleOpen => puzzleQuestion != null;
 
         // --- View State ---
         public GameViewMode viewMode = GameViewMode.Title;
         public BattlePhase battlePhase = BattlePhase.PlayerCommand;
         public ModalOverlay activeModal = ModalOverlay.None;
 
-        // --- Pixel-Art Texture Cache ---
         private readonly Dictionary<string, Texture2D> _texCache = new Dictionary<string, Texture2D>();
 
-        // Computed Total Stats (Crushed lowers DEF by 20%, GDD §9)
+        // Computed stats (Crushed lowers DEF by 20%, GDD §9)
         public int TotalAtk => baseAtk + (GrimoireDatabase.Items.TryGetValue(equippedWeapon, out var w) ? w.atkBonus : 0);
         public int TotalDef
         {
@@ -134,36 +140,45 @@ namespace GrimoireAegis.UI
         public int TotalInt => 10 + (playerLevel - 1) * 2;
         public float AccessoryTimerBonus => GrimoireDatabase.Items.TryGetValue(equippedAccessory, out var a) ? a.timerBonus : 0f;
 
+        public static string ActName(int a) => a == 1 ? "Perpustakaan Terkubur" : (a == 2 ? "Benteng Tulang" : "Menara Pecah-Belah");
+        public static string ActTopic(int a) => a == 1 ? "Linear & Binary Search" : (a == 2 ? "Bubble, Selection & Insertion Sort" : "Merge Sort, Quick Sort & Big-O");
+        public static string ActIntroText(int a) => a == 1
+            ? "Rak-rak Katalog Agung tenggelam dalam debu dan tinta. Temukan 3 Kunci Indeks untuk membuka ruang The Blind Archivist."
+            : a == 2 ? "Di bawah perpustakaan, tulang dan prasasti tersusun kacau. Kumpulkan 3 kunci dan hadapi The Abyss Golem."
+            : "Menara ini terus terbelah dua. Di puncaknya, Entropy menunggu.";
+
         private void Awake()
         {
-            if (GetComponent<GrimoireAudioManager>() == null)
-            {
-                gameObject.AddComponent<GrimoireAudioManager>();
-            }
+            if (Time.timeScale <= 0f) Time.timeScale = 1f;
+            if (GetComponent<GrimoireAudioManager>() == null) gameObject.AddComponent<GrimoireAudioManager>();
             PixelUI.Tex = GetTex;
             PixelUI.Sfx = k => GrimoireAudioManager.Instance?.PlaySfx(k, k == "move" ? 0.35f : 1f);
         }
 
         private void Start()
         {
-            if (Camera.main != null)
-            {
-                Camera.main.backgroundColor = new Color(0.02f, 0.02f, 0.05f);
-            }
+            if (Camera.main != null) Camera.main.backgroundColor = new Color(0.02f, 0.02f, 0.05f);
             GrimoireAudioManager.Instance?.PlayMusic("music_title");
-            GenerateActBoard(1);
+            map = AdventureMaps.Build(1);
         }
 
         private void Update()
         {
-            // Run scheduled animation beats (attack contact, death -> victory, etc.)
+            if (Time.timeScale <= 0f) Time.timeScale = 1f;
             if (_scheduled.Count > 0)
             {
                 var due = _scheduled.Where(e => Time.time >= e.Key).ToList();
                 _scheduled.RemoveAll(e => Time.time >= e.Key);
-                foreach (var e in due.OrderBy(e => e.Key)) e.Value?.Invoke();
+                foreach (var e in due.OrderBy(e => e.Key))
+                {
+                    try { e.Value?.Invoke(); }
+                    catch (Exception ex) { Debug.LogWarning($"[GrimoireGameController] Scheduled callback error: {ex}"); }
+                }
             }
-
+            if (viewMode == GameViewMode.Board && stepsRemaining > 0 && !_walking && _choices.Count == 0 && !DiceRolling && !PuzzleOpen && !DialogOpen && _scheduled.Count == 0)
+            {
+                ContinueWalk();
+            }
             TickQuestionTimer();
             HandleKeyboard();
         }
@@ -176,268 +191,348 @@ namespace GrimoireAegis.UI
             _listSel = 0;
         }
 
-        // =====================================================================
-        // PIXEL ART TEXTURE LOADER (STRICT POINT FILTERING)
-        // =====================================================================
         private Texture2D GetTex(string resourcePath)
         {
             if (string.IsNullOrEmpty(resourcePath)) return null;
             if (_texCache.TryGetValue(resourcePath, out Texture2D tex)) return tex;
-
             tex = Resources.Load<Texture2D>("Gen/" + resourcePath);
             if (tex != null)
             {
                 tex.filterMode = FilterMode.Point;
                 tex.wrapMode = TextureWrapMode.Clamp;
             }
-            _texCache[resourcePath] = tex;   // cache misses too (null)
+            _texCache[resourcePath] = tex;
             return tex;
         }
 
         // =====================================================================
-        // NEW RUN / DIFFICULTY
+        // NEW RUN
         // =====================================================================
-        public void StartNewRun(Difficulty d, int act = 1)
+        public void StartNewRun(Difficulty d)
         {
+            if (Time.timeScale <= 0f) Time.timeScale = 1f;
+            _scheduled.Clear();
+            _dialog.Clear();
+            _line = default;
+            _dialogDone = null;
             difficulty = d;
             playerLevel = 1; playerExp = 0; expToNext = 100;
             maxHp = hp = 120; maxMp = mp = 60; focus = 0;
             baseAtk = 18; baseDef = 8; baseSpd = 12; gold = 120; logicFragments = 0;
             equippedWeapon = "blade_lv1"; equippedAccessory = "";
             ownedEquipment = new List<string> { "blade_lv1" };
-            consumables = new Dictionary<string, int> { { "pot_hp", 3 }, { "pot_mp", 2 }, { "scroll_clarity", 1 }, { "golden_die", 1 } };
+            consumables = new Dictionary<string, int> { { "pot_hp", 3 }, { "pot_mp", 2 }, { "scroll_clarity", 1 } };
             ddaTier = d == Difficulty.Easy ? "Assisted" : "Standard";
             panicStacks = 0;
             _pStatus.Clear();
+            _seenTips.Clear();
             runStarted = true;
-            StartActExpedition(act);
+            // Lyra sets the scene, then the Act I card
+            viewMode = GameViewMode.ActIntro;
+            currentAct = 1;
+            map = AdventureMaps.Build(1);
+            currentNode = map.startId;
+            _prevNode = -1;
+            stepsRemaining = 0;
+            keysCollected = 0;
+            _choices.Clear();
+            _walking = false;
+            puzzleQuestion = null;
+            activeModal = ModalOverlay.None;
+            _actIntroStart = Time.time + 999f;     // card waits behind the dialog
+            StoryIntro(() => StartActExpedition(1));
         }
 
         // =====================================================================
-        // BOARD EXPLORATION & DICE LOGIC (LOST IN MULTIVERSE RPG STYLE)
+        // ADVENTURE BOARD
         // =====================================================================
         public void StartActExpedition(int act)
         {
             currentAct = Mathf.Clamp(act, 1, 3);
-            GenerateActBoard(currentAct);
+            map = AdventureMaps.Build(currentAct);
+            currentNode = map.startId;
+            _prevNode = -1;
+            stepsRemaining = 0;
+            keysCollected = 0;
+            _choices.Clear();
+            _walking = false;
+            puzzleQuestion = null;
             runStarted = true;
             activeModal = ModalOverlay.None;
-            viewMode = GameViewMode.ActIntro;   // LIM-style chapter card first
+            viewMode = GameViewMode.ActIntro;
             _actIntroStart = Time.time;
-
-            var stage = GrimoireDatabase.Stages[currentAct];
-            GrimoireAudioManager.Instance?.PlayMusic(stage.musicKey);
-            boardBannerMessage = "Lempar dadu [Spasi] lalu pilih petak bercahaya. Kalahkan boss di ujung labirin!";
+            boardMessage = "Lempar dadu untuk mulai berjalan.";
+            GrimoireAudioManager.Instance?.PlayMusic(GrimoireDatabase.Stages[currentAct].musicKey);
+            _camPos = NodeWorld(map.Get(currentNode));
         }
 
         public void EnterBoardFromIntro()
         {
             viewMode = GameViewMode.Board;
             GrimoireAudioManager.Instance?.PlaySfx("select");
-        }
-
-        public void GenerateActBoard(int act)
-        {
-            board = LabyrinthBoardGenerator.Generate(act);
-            currentTileId = board.startId;
-            stepsRemaining = 0;
-            diceValue = 1;
-            board.RevealAround(currentTileId, 1);
+            if (currentAct == 1) TipBoard();
         }
 
         public bool DiceRolling => Time.time < _diceRollUntil;
+        public bool AwaitingChoice => _choices.Count > 0;
+        public IReadOnlyList<int> Choices => _choices;
+        public bool BoardBusy => DiceRolling || _walking || stepsRemaining > 0 || PuzzleOpen || DialogOpen;
 
         public void RollExplorationDice()
         {
-            if (stepsRemaining > 0 || DiceRolling) return;
-
-            int spdDiceBonus = TotalSpd >= 16 ? 1 : 0;
-            if (forceGoldenDie)
-            {
-                diceValue = 6;
-                forceGoldenDie = false;
-            }
-            else
-            {
-                diceValue = UnityEngine.Random.Range(1, 7);
-            }
-
-            _diceRollUntil = Time.time + 0.55f;
+            if (BoardBusy) return;
+            int bonus = TotalSpd >= 16 ? 1 : 0;
+            diceValue = UnityEngine.Random.Range(1, 7);
+            _diceRollUntil = Time.time + 0.6f;
             GrimoireAudioManager.Instance?.PlaySfx("dice");
-            int steps = diceValue + spdDiceBonus;
-            Schedule(0.55f, () =>
+            int steps = diceValue + bonus;
+            Schedule(0.6f, () =>
             {
                 stepsRemaining = steps;
-                boardBannerMessage = spdDiceBonus > 0
-                    ? $"Dadu {{#ffd86a}}{diceValue}{{/}} + bonus SPD = {{#ffd86a}}{stepsRemaining}{{/}} langkah. Klik petak bercahaya atau tekan panah."
-                    : $"Dadu {{#ffd86a}}{diceValue}{{/}} langkah. Klik petak bercahaya atau tekan panah untuk bergerak.";
+                boardMessage = $"Dadu {{#ffd86a}}{diceValue}{{/}}{(bonus > 0 ? " +1" : "")}!";
+                ContinueWalk();
             });
         }
 
-        public void StepToNeighborTile(int targetTileId)
+        private IEnumerable<int> Forward(MapNode n) => n.neighbors.Where(id => id != _prevNode);
+
+        /// <summary>Walks one node at a time; stops at forks (player picks), dead ends, blockers and the locked gate.</summary>
+        private void ContinueWalk()
         {
-            if (board == null || stepsRemaining <= 0) return;
-            var curTile = board.GetTile(currentTileId);
-            if (curTile == null || !curTile.neighbors.Contains(targetTileId)) return;
+            _choices.Clear();
+            var cur = map.Get(currentNode);
+            if (cur == null || stepsRemaining <= 0) { stepsRemaining = 0; _walking = false; if (cur != null) Land(cur); return; }
 
-            currentTileId = targetTileId;
-            stepsRemaining--;
-            _tokenHopStart = Time.time;
-            var landed = board.GetTile(currentTileId);
-            landed.visited = true;
-            board.RevealAround(currentTileId, 1);
-            GrimoireAudioManager.Instance?.PlaySfx("step");
-
-            // Boss / elite tiles stop you; otherwise resolve when steps run out
-            if (landed.type == BoardTileType.Boss || landed.type == BoardTileType.Elite || stepsRemaining == 0)
+            var next = Forward(cur).ToList();
+            if (next.Count == 0) next = cur.neighbors.ToList();      // dead end: turn around
+            // the gate stops you unless all three keys are in hand
+            var gate = next.Where(id => map.Get(id).type == NodeType.Gate && !map.Get(id).cleared).ToList();
+            if (gate.Count > 0 && keysCollected < 3)
             {
-                stepsRemaining = 0;
-                Schedule(0.25f, () => ResolveBoardTileEvent(landed));
+                next.RemoveAll(id => gate.Contains(id));
+                if (next.Count == 0)
+                {
+                    if (_walking)
+                    {
+                        _prevNode = gate[0];
+                        stepsRemaining = 0;
+                        _walking = false;
+                        TipGateLocked();
+                        return;
+                    }
+                    next = cur.neighbors.Where(id => !gate.Contains(id)).ToList();
+                    if (next.Count == 0)
+                    {
+                        stepsRemaining = 0;
+                        _walking = false;
+                        TipGateLocked();
+                        return;
+                    }
+                }
+            }
+            if (next.Count == 1)
+            {
+                _walking = true;
+                Schedule(0.2f, () => StepTo(next[0]));
             }
             else
             {
-                boardBannerMessage = $"Sisa langkah: {{#ffd86a}}{stepsRemaining}{{/}}. Lanjutkan, atau berhenti di sini.";
+                _walking = false;
+                _choices.AddRange(next);
+                boardMessage = $"Persimpangan! Pilih arah ({stepsRemaining} langkah lagi).";
             }
         }
 
-        /// <summary>Arrow keys on the board: step to the neighbour in that direction.</summary>
-        public void StepDirection(int dx, int dy)
+        public void ChooseDirection(int nodeId)
         {
-            if (board == null || stepsRemaining <= 0) return;
-            var cur = board.GetTile(currentTileId);
-            foreach (int nb in cur.neighbors)
+            if (!_choices.Contains(nodeId)) return;
+            _choices.Clear();
+            _walking = true;
+            StepTo(nodeId);
+        }
+
+        /// <summary>Arrow keys at a fork.</summary>
+        public void ChooseDirection(int dx, int dy)
+        {
+            var cur = map.Get(currentNode);
+            foreach (int id in _choices.ToList())
             {
-                var t = board.GetTile(nb);
-                if (t.gx - cur.gx == dx && t.gy - cur.gy == dy) { StepToNeighborTile(nb); return; }
+                var n = map.Get(id);
+                if (n.gx - cur.gx == dx && n.gy - cur.gy == dy) { ChooseDirection(id); return; }
             }
         }
 
-        public static string TileName(BoardTileType t)
+        private void StepTo(int id)
         {
-            switch (t)
-            {
-                case BoardTileType.Start: return "Gerbang Masuk";
-                case BoardTileType.Enemy: return "Monster";
-                case BoardTileType.Elite: return "Elite / Mid-Boss";
-                case BoardTileType.Boss: return "Boss Act";
-                case BoardTileType.Treasure: return "Peti Arsip";
-                case BoardTileType.Merchant: return "Mordecai (Toko)";
-                case BoardTileType.Rest: return "Perapian (Istirahat)";
-                case BoardTileType.Shrine: return "Patung Malaikat";
-                case BoardTileType.Event: return "Manuskrip Misteri";
-                case BoardTileType.Trap: return "Jebakan";
-                default: return t.ToString();
-            }
-        }
+            var node = map.Get(id);
+            if (node == null) { stepsRemaining = 0; _walking = false; return; }
+            _prevNode = currentNode;
+            currentNode = id;
+            stepsRemaining = Mathf.Max(0, stepsRemaining - 1);
+            _tokenHopStart = Time.time;
+            node.visited = true;
+            map.RevealAround(id, 2);
+            GrimoireAudioManager.Instance?.PlaySfx("step");
 
-        public static string TileDesc(BoardTileType t)
-        {
-            switch (t)
+            if (node.type == NodeType.Gate && !node.cleared && keysCollected >= 3)
             {
-                case BoardTileType.Start: return "Titik awal ekspedisi.";
-                case BoardTileType.Enemy: return "Pertarungan melawan monster biasa Act ini.";
-                case BoardTileType.Elite: return "Musuh kuat. Langkahmu berhenti di sini.";
-                case BoardTileType.Boss: return "Boss Act. Kalahkan untuk membuka Act berikutnya.";
-                case BoardTileType.Treasure: return "Gold dan Focus.";
-                case BoardTileType.Merchant: return "Beli senjata, aksesori, dan ramuan.";
-                case BoardTileType.Rest: return "Pulihkan 45% HP dan 50% MP.";
-                case BoardTileType.Shrine: return "Focus penuh (Limit siap) dan Max MP +5.";
-                case BoardTileType.Event: return "Fragmen algoritma kuno: EXP dan Gold.";
-                case BoardTileType.Trap: return "Lantai runtuh: -10% HP.";
-                default: return "";
-            }
-        }
-
-        public void ResolveBoardTileEvent(BoardTileNode tile)
-        {
-            if (tile == null) return;
-            var stage = GrimoireDatabase.Stages[currentAct];
-
-            if (tile.cleared && tile.type != BoardTileType.Merchant && tile.type != BoardTileType.Rest && tile.type != BoardTileType.Shrine)
-            {
-                boardBannerMessage = "Petak ini sudah dibersihkan. Lempar dadu lagi untuk melanjutkan.";
+                node.cleared = true;          // three keys: it opens as you walk in
+                stepsRemaining = 0;
+                _walking = false;
+                GrimoireAudioManager.Instance?.PlaySfx("levelup");
+                Shake(3f, 0.3f);
+                Schedule(0.1f, TipGateOpen);
                 return;
             }
-
-            switch (tile.type)
+            if (node.Blocks)
             {
-                case BoardTileType.Enemy:
-                {
-                    string mId = stage.regularEnemies[UnityEngine.Random.Range(0, stage.regularEnemies.Length)];
-                    StartBattleEncounter(mId, false, tile);
+                stepsRemaining = 0;
+                _walking = false;
+                Schedule(0.3f, () => Trigger(node));
+                return;
+            }
+            Schedule(0.22f, ContinueWalk);
+        }
+
+        /// <summary>Things that stop you on the way: monsters, keys, the boss.</summary>
+        private void Trigger(MapNode node)
+        {
+            switch (node.type)
+            {
+                case NodeType.Enemy:
+                case NodeType.Elite:
+                    StartBattleEncounter(node.monsterId, node.type == NodeType.Elite, node);
                     break;
-                }
-                case BoardTileType.Elite:
-                {
-                    string mId = stage.eliteEnemies[UnityEngine.Random.Range(0, stage.eliteEnemies.Length)];
-                    StartBattleEncounter(mId, false, tile);
+                case NodeType.Boss:
+                    BossIntro(node.monsterId, () => StartBattleEncounter(node.monsterId, true, node));
                     break;
-                }
-                case BoardTileType.Boss:
-                {
-                    StartBattleEncounter(stage.bossId, true, tile);
+                case NodeType.Puzzle:
+                    OpenPuzzle(node);
                     break;
-                }
-                case BoardTileType.Treasure:
+                case NodeType.KeyChest:
+                    node.cleared = true;
+                    GainKey("Peti tersembunyi berisi Kunci Indeks!");
+                    break;
+            }
+        }
+
+        /// <summary>Things that happen when the walk ends on a tile.</summary>
+        private void Land(MapNode node)
+        {
+            if (node.cleared && node.type != NodeType.Merchant) { boardMessage = "Lempar dadu lagi."; return; }
+            switch (node.type)
+            {
+                case NodeType.Treasure:
                 {
-                    tile.cleared = true;
-                    int foundGold = UnityEngine.Random.Range(45, 95) * currentAct;
-                    gold += foundGold;
-                    focus = Mathf.Min(100, focus + 25);
+                    node.cleared = true;
+                    int g = UnityEngine.Random.Range(40, 80) * currentAct;
+                    gold += g; focus = Mathf.Min(100, focus + 20);
                     GrimoireAudioManager.Instance?.PlaySfx("coin");
-                    boardBannerMessage = $"{{#ffd86a}}PETI ARSIP KUNO!{{/}} +{foundGold} Gold dan +25 Focus.";
+                    boardMessage = $"Peti harta: {{#ffd86a}}+{g} Gold{{/}}";
+                    PopBoard($"+{g} Gold", PixelUI.Gold);
                     break;
                 }
-                case BoardTileType.Rest:
+                case NodeType.Rest:
                 {
-                    tile.cleared = true;
-                    int recHp = Mathf.RoundToInt(maxHp * 0.45f);
-                    int recMp = Mathf.RoundToInt(maxMp * 0.50f);
-                    hp = Mathf.Min(maxHp, hp + recHp);
-                    mp = Mathf.Min(maxMp, mp + recMp);
+                    node.cleared = true;
+                    hp = Mathf.Min(maxHp, hp + Mathf.RoundToInt(maxHp * 0.5f));
+                    mp = Mathf.Min(maxMp, mp + Mathf.RoundToInt(maxMp * 0.5f));
                     _pStatus.Remove("poison");
                     GrimoireAudioManager.Instance?.PlaySfx("heal");
-                    boardBannerMessage = $"{{#8ae05a}}PERAPIAN ARSIP:{{/}} Aegis beristirahat. +{recHp} HP, +{recMp} MP, racun hilang.";
+                    boardMessage = "Perapian: HP dan MP pulih.";
+                    PopBoard("HP & MP pulih", PixelUI.Green);
                     break;
                 }
-                case BoardTileType.Shrine:
+                case NodeType.Shrine:
                 {
-                    tile.cleared = true;
-                    focus = 100;
-                    maxMp += 5;
-                    mp = maxMp;
+                    node.cleared = true;
+                    hp = maxHp; focus = Mathf.Min(100, focus + 30);
                     GrimoireAudioManager.Instance?.PlaySfx("magic");
-                    boardBannerMessage = "{#7fd8ff}PATUNG MALAIKAT:{/} Focus penuh - LIMIT BREAK siap! Max MP +5.";
+                    boardMessage = "Patung Malaikat: HP penuh.";
+                    PopBoard("HP penuh!", PixelUI.Green);
                     break;
                 }
-                case BoardTileType.Merchant:
-                {
+                case NodeType.Merchant:
                     GrimoireAudioManager.Instance?.PlaySfx("coin");
-                    boardBannerMessage = "Mordecai si Pandai Besi membuka lapaknya.";
                     _shopTab = 0;
                     activeModal = ModalOverlay.ShopInventory;
                     break;
-                }
-                case BoardTileType.Trap:
+                case NodeType.Trap:
                 {
-                    tile.cleared = true;
+                    node.cleared = true;
                     int dmg = Mathf.Max(5, Mathf.RoundToInt(maxHp * 0.10f));
                     hp = Mathf.Max(1, hp - dmg);
                     GrimoireAudioManager.Instance?.PlaySfx("hit");
-                    Shake(4f, 0.2f);
-                    boardBannerMessage = $"{{#f05a50}}JEBAKAN!{{/}} Lantai indeks runtuh: -{dmg} HP.";
+                    Shake(4f, 0.25f);
+                    boardMessage = $"Jebakan! {{#f05a50}}-{dmg} HP{{/}}";
+                    PopBoard($"-{dmg} HP", PixelUI.Red);
                     break;
                 }
-                case BoardTileType.Event:
+                case NodeType.Event:
+                    node.cleared = true;
+                    GainExpAndGold(20 * currentAct, 0);
+                    LyraNote();
+                    break;
                 default:
-                {
-                    tile.cleared = true;
-                    int expGain = 30 * currentAct;
-                    GainExpAndGold(expGain, 35 * currentAct);
-                    GrimoireAudioManager.Instance?.PlaySfx("levelup");
-                    boardBannerMessage = $"{{#d0a0ff}}MANUSKRIP TERSEMBUNYI:{{/}} fragmen algoritma kuno (+{expGain} EXP, +{35 * currentAct} Gold).";
+                    boardMessage = "Lempar dadu lagi.";
                     break;
-                }
+            }
+        }
+
+        private void GainKey(string why)
+        {
+            keysCollected = Mathf.Min(3, keysCollected + 1);
+            GrimoireAudioManager.Instance?.PlaySfx("levelup");
+            PopBoard("Kunci Indeks!", PixelUI.Gold);
+            boardMessage = $"{why} ({keysCollected}/3)";
+            TipKey();
+        }
+
+        /// <summary>After fleeing, step back so you are not standing on the monster.</summary>
+        private void StepBackAfterFlee()
+        {
+            if (_prevNode >= 0) { int c = currentNode; currentNode = _prevNode; _prevNode = c; }
+        }
+
+        // --------------------------------------------------------------- puzzle
+        private void OpenPuzzle(MapNode node)
+        {
+            _puzzleNode = node;
+            var pool = GrimoireDatabase.Stages[currentAct].regularEnemies.SelectMany(m => GrimoireDatabase.Monsters[m].tpPool).Distinct().ToArray();
+            puzzleQuestion = ProceduralQuestionEngine.GenerateQuestion(pool[UnityEngine.Random.Range(0, pool.Length)], "Assisted", TotalSpd, 0f);
+            _puzzleChosen = -1;
+            _popupStart = Time.time;
+            TipPuzzle();
+        }
+
+        public void AnswerPuzzle(int i)
+        {
+            if (puzzleQuestion == null || _puzzleChosen >= 0) return;
+            _puzzleChosen = i;
+            bool ok = i == puzzleQuestion.correctIndex;
+            telemetryLog.Add(new TelemetryRecord
+            {
+                timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), act = currentAct, monsterName = "Rak Terkunci",
+                tp = puzzleQuestion.tp, bloom = puzzleQuestion.bloom, formatCode = puzzleQuestion.formatCode, ddaTier = "Puzzle",
+                isCorrect = ok, defenceGrade = ok ? "PUZZLE OK" : "PUZZLE RETRY", responseTimeSec = Time.time - _popupStart,
+                timeLimitSec = 0f, misconceptionTag = ok ? "-" : CleanMis(puzzleQuestion.misconceptionTags[i])
+            });
+            GrimoireAudioManager.Instance?.PlaySfx(ok ? "parry" : "error");
+        }
+
+        public void ClosePuzzle()
+        {
+            if (puzzleQuestion == null || _puzzleChosen < 0) return;
+            bool ok = _puzzleChosen == puzzleQuestion.correctIndex;
+            if (ok)
+            {
+                puzzleQuestion = null;
+                _puzzleNode.cleared = true;
+                GainKey("Rak terbuka, ada Kunci Indeks di dalamnya!");
+            }
+            else
+            {
+                OpenPuzzle(_puzzleNode);      // new question, no penalty
             }
         }
 
@@ -454,13 +549,9 @@ namespace GrimoireAegis.UI
                 playerExp -= expToNext;
                 playerLevel++;
                 expToNext = Mathf.RoundToInt(expToNext * 1.35f);
-                maxHp += 18;
-                hp = maxHp;
-                maxMp += 10;
-                mp = maxMp;
-                baseAtk += 4;
-                baseDef += 2;
-                baseSpd += 1;
+                maxHp += 18; hp = maxHp;
+                maxMp += 10; mp = maxMp;
+                baseAtk += 4; baseDef += 2; baseSpd += 1;
                 leveled = true;
                 GrimoireAudioManager.Instance?.PlaySfx("levelup");
             }
@@ -472,10 +563,7 @@ namespace GrimoireAegis.UI
             if (!GrimoireDatabase.Items.TryGetValue(id, out var it)) return false;
             if (gold < it.price) { GrimoireAudioManager.Instance?.PlaySfx("error"); return false; }
             gold -= it.price;
-            if (it.kind == "consumable")
-            {
-                consumables[id] = (consumables.TryGetValue(id, out int q) ? q : 0) + 1;
-            }
+            if (it.kind == "consumable") consumables[id] = (consumables.TryGetValue(id, out int q) ? q : 0) + 1;
             else
             {
                 if (!ownedEquipment.Contains(id)) ownedEquipment.Add(id);

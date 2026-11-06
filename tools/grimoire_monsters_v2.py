@@ -609,12 +609,17 @@ MONSTERS = {
     'entropy_chaos_king': (entropy_chaos_king, 64),
 }
 
+# common minions ("kroco"), drawn in grimoire_minions_v2.py
+from grimoire_minions_v2 import MINIONS, MINION_CAST
+MONSTERS.update(MINIONS)
+
 
 import numpy as _np
 
 BOSSES = ('the_blind_archivist', 'the_abyss_golem', 'the_sphinx_of_entropy', 'entropy_chaos_king', 'twin_faced_librarian')
 # status-skill aura colour per monster (matches the status it inflicts)
 CAST_COLOR = {
+    **MINION_CAST,
     'corrupted_slime': '#a8e272', 'lost_wisp': '#7ff0d0', 'bookworm_horror': '#e9dcb8',
     'twin_faced_librarian': '#d8dee8', 'the_blind_archivist': '#b8c8e0', 'skeleton_archer': '#7ff0d0',
     'venomous_arachnid': '#7ec45c', 'grave_digger': '#d8a860', 'the_abyss_golem': '#ff9a40',

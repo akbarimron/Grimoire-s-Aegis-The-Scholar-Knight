@@ -503,6 +503,8 @@ def build_v2(roots, godot_sprites=None, only=None):
         pass
     import grimoire_ui_v2 as ui
     ui.export_all(roots, manifest)
+    import grimoire_world_v2 as world
+    world.export_all(roots, manifest)
 
     # Flat index for Unity's JsonUtility (no dictionaries): key = "<actor>_<anim>"
     flat = {'entries': [{'key': f'{actor}_{anim}', 'frames': d['frames'], 'durations': d['durations_ms'], 'loop': d['loop']}

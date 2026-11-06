@@ -167,6 +167,7 @@ namespace GrimoireAegis.UI
         public static PixelFont Font { get; private set; }
         public static Func<string, Texture2D> Tex;   // resource loader injected by the controller
         public static Action<string> Sfx;            // hover / click sounds
+        public static bool InputBlocked;             // true for background layers when modal/dialog/puzzle is open
 
         private static Texture2D _white;
         private static string _tooltip;
@@ -368,7 +369,7 @@ namespace GrimoireAegis.UI
         }
 
         // ------------------------------------------------------------------ widgets
-        public static bool Hover(Rect r) => r.Contains(Mouse);
+        public static bool Hover(Rect r) => !InputBlocked && r.Contains(Mouse);
 
         /// <summary>
         /// Pixel button. style: normal | gold | danger. selected = keyboard focus.
@@ -377,7 +378,7 @@ namespace GrimoireAegis.UI
         public static bool Button(Rect r, string label, string icon = null, bool enabled = true, bool selected = false,
                                   string style = "normal", string hotkey = null, string tooltip = null, int align = 0)
         {
-            bool hover = enabled && Hover(r);
+            bool hover = enabled && !InputBlocked && Hover(r);
             int id = Mathf.RoundToInt(r.x * 7 + r.y * 131 + r.width * 17);
             if (hover)
             {
@@ -408,7 +409,7 @@ namespace GrimoireAegis.UI
             if (hotkey != null && tx + Measure(StripTags(label)) + Measure(hotkey) + 10 <= r.xMax)
                 TextRight(r.xMax - 5, ty, hotkey, enabled ? Dim : new Color(0.3f, 0.3f, 0.36f));
 
-            if (enabled && Event.current.type == EventType.MouseUp && Event.current.button == 0 && r.Contains(Event.current.mousePosition))
+            if (enabled && !InputBlocked && Event.current.type == EventType.MouseUp && Event.current.button == 0 && r.Contains(Event.current.mousePosition))
             {
                 Event.current.Use();
                 Sfx?.Invoke("select");
@@ -420,7 +421,7 @@ namespace GrimoireAegis.UI
         /// <summary>Selectable list row (used for menus, lists): highlight + cursor arrow.</summary>
         public static bool Row(Rect r, string label, bool selected, string icon = null, bool enabled = true, string right = null, Color? rightCol = null)
         {
-            bool hover = enabled && Hover(r);
+            bool hover = enabled && !InputBlocked && Hover(r);
             if (selected || hover)
             {
                 Fill(r, new Color(1f, 0.85f, 0.4f, selected ? 0.13f : 0.07f));
@@ -436,7 +437,7 @@ namespace GrimoireAegis.UI
             Color col = !enabled ? new Color(0.4f, 0.38f, 0.46f) : (selected ? Gold : Ink);
             Text(x, Mathf.Round(r.y + (r.height - 8) * 0.5f) - 1, label, col);
             if (right != null) TextRight(r.xMax - 4, Mathf.Round(r.y + (r.height - 8) * 0.5f) - 1, right, enabled ? (rightCol ?? Dim) : new Color(0.4f, 0.38f, 0.46f));
-            if (enabled && Event.current.type == EventType.MouseUp && Event.current.button == 0 && r.Contains(Event.current.mousePosition))
+            if (enabled && !InputBlocked && Event.current.type == EventType.MouseUp && Event.current.button == 0 && r.Contains(Event.current.mousePosition))
             {
                 Event.current.Use();
                 Sfx?.Invoke("select");
@@ -471,6 +472,7 @@ namespace GrimoireAegis.UI
         public static bool ScrollWheel(Rect r, out float delta)
         {
             delta = 0;
+            if (InputBlocked) return false;
             var e = Event.current;
             if (e.type == EventType.ScrollWheel && r.Contains(e.mousePosition))
             {

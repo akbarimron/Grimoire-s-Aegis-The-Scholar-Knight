@@ -6,13 +6,14 @@ using UnityEngine;
 namespace GrimoireAegis.UI
 {
     /// <summary>
-    /// QA helper: launch the player with  -grimoireShots &lt;folder&gt;  to walk every screen and
-    /// save screenshots (title, difficulty, act card, board, battle beats, guide, bestiary, shop...).
+    /// QA helper: launch the player with  -grimoireShots &lt;folder&gt;  to walk the whole flow
+    /// (story, board, puzzle, gate, battles, reveal cards, windows) and save screenshots.
     /// Does nothing in normal play.
     /// </summary>
     public class GrimoireScreenshotTour : MonoBehaviour
     {
         private string _dir;
+        private GrimoireGameController _gc;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Boot()
@@ -40,96 +41,154 @@ namespace GrimoireAegis.UI
 
         private IEnumerator Wait(float s) { yield return new WaitForSeconds(s); }
 
+        private void Skip() => _gc.TourSet("skipDialog");
+
+        /// <summary>Waits for the question pop-up (skipping tips on the way).</summary>
+        private IEnumerator UntilQuestion(float timeout = 4f)
+        {
+            float t = 0;
+            while (_gc.battlePhase != BattlePhase.AlgorithmicChallenge && t < timeout)
+            {
+                if (_gc.TourDialogOpen) Skip();
+                t += Time.deltaTime;
+                yield return null;
+            }
+        }
+
+        private IEnumerator UntilPhase(BattlePhase ph, float timeout = 4f)
+        {
+            float t = 0;
+            while (_gc.battlePhase != ph && t < timeout) { t += Time.deltaTime; yield return null; }
+        }
+
         private IEnumerator Start()
         {
             yield return Wait(1.2f);
-            var gc = FindFirstObjectByType<GrimoireGameController>();
-            if (gc == null) { Application.Quit(); yield break; }
+            _gc = FindFirstObjectByType<GrimoireGameController>();
+            if (_gc == null) { Application.Quit(); yield break; }
+            var gc = _gc;
 
             yield return Shot("01_title");
             gc.TourSet("title", 1, 0);
             yield return Wait(0.3f);
             yield return Shot("02_difficulty");
 
-            gc.StartNewRun(Difficulty.Medium, 1);
-            yield return Wait(1.2f);
-            yield return Shot("03_act_intro");
+            gc.StartNewRun(Difficulty.Medium);
+            yield return Wait(1.0f);
+            yield return Shot("03_story");
+            Skip();
+            yield return Wait(1.0f);
+            yield return Shot("04_act_card");
             gc.EnterBoardFromIntro();
-            gc.RollExplorationDice();
-            yield return Wait(0.9f);
-            yield return Shot("04_board");
-
-            // ---- Medium battle: attack, defend pop-up, Perfect Guard ----
-            gc.StartBattleEncounter("skeleton_archer", false);
-            yield return Wait(0.25f);
-            yield return Shot("10_spawn");
+            yield return Wait(1.0f);
+            yield return Shot("05_board_tip");
+            Skip();
             yield return Wait(0.8f);
-            gc.TourSet("status", 0); gc.TourSet("panic", 1);
-            yield return Shot("11_battle_command");
+            yield return Shot("06_board");
+            gc.RollExplorationDice();
+            yield return Wait(2.2f);
+            if (gc.TourDialogOpen) Skip();
+            yield return Shot("07_after_roll");
+
+            gc.TourSet("revealAll");
+            gc.TourSet("walkTo", (int)NodeType.Elite);
+            yield return Wait(1.2f);
+            yield return Shot("08_map_elite");
+            gc.TourSet("walkTo", (int)NodeType.Gate);
+            gc.TourSet("keys", 2);
+            yield return Wait(1.2f);
+            yield return Shot("09_map_gate");
+
+            gc.TourSet("puzzle");
+            yield return Wait(0.5f);
+            yield return Shot("10_puzzle");
+            gc.AnswerPuzzle(gc.puzzleQuestion.correctIndex);
+            yield return Wait(0.4f);
+            yield return Shot("11_puzzle_solved");
+            gc.ClosePuzzle();
+            yield return Wait(0.4f);
+            Skip();
+
+            // ---- battle: correct answer ----
+            gc.StartBattleEncounter("ink_zombie", false);
+            yield return Wait(1.0f);
+            yield return Shot("20_battle_tip");
+            Skip();
+            yield return Wait(0.3f);
+            yield return Shot("21_battle");
             gc.ExecuteBasicAttack();
             yield return Wait(0.32f);
-            yield return Shot("12_attack_hit");
-            yield return Wait(0.9f);
-            yield return Shot("13_question_reading");
-            yield return Wait(1.6f);
-            yield return Shot("14_question_timer");
+            yield return Shot("22_attack");
+            yield return UntilQuestion();
+            yield return Wait(1.7f);
+            yield return Shot("23_question");
             gc.SubmitAnswer(gc.currentQuestion.correctIndex);
-            yield return Wait(0.35f);
-            yield return Shot("15_perfect_guard");
-            yield return Wait(0.6f);
-            yield return Shot("16_resolution");
-            gc.ContinueFromResolution();   // arrow 2
-            yield return Wait(1.0f);
-            gc.SubmitAnswer((gc.currentQuestion.correctIndex + 1) % 4);
+            yield return Wait(0.15f);
+            yield return Shot("24_locked_in");
+            yield return Wait(0.65f);
+            yield return Shot("25_blocked");
+            yield return UntilPhase(BattlePhase.TurnResolution);
             yield return Wait(0.3f);
-            yield return Shot("17_break");
-            yield return Wait(0.6f);
-            yield return Shot("18_break_resolution");
-            gc.ContinueFromResolution();   // arrow 3
+            yield return Shot("26_reveal_correct");
+
+            // ---- wrong answer (a sturdier monster so the fight goes on) ----
+            gc.ContinueFromResolution();
+            yield return Wait(0.3f);
+            gc.StartBattleEncounter("bone_soldier", false);
             yield return Wait(1.0f);
-            gc.SubmitAnswer(gc.currentQuestion.correctIndex);
+            if (gc.TourDialogOpen) Skip();
+            gc.ExecuteBasicAttack();
+            yield return UntilQuestion();
+            yield return Wait(1.7f);
+            gc.SubmitAnswer((gc.currentQuestion.correctIndex + 1) % 4);
             yield return Wait(0.8f);
+            yield return Shot("27_hit");
+            yield return UntilPhase(BattlePhase.TurnResolution);
+            yield return Wait(0.4f);
+            if (gc.TourDialogOpen) { yield return Shot("28_reveal_wrong_tip"); Skip(); }
+            yield return Wait(0.2f);
+            yield return Shot("29_reveal_wrong");
             gc.ContinueFromResolution();
             yield return Wait(0.4f);
-            gc.TourSet("spellMenu", 2);
-            yield return Shot("19_spell_menu");
+            gc.TourSet("spellMenu", 0);
+            yield return Wait(0.2f);
+            if (gc.TourDialogOpen) Skip();
+            yield return Shot("30_spell_menu");
 
-            // ---- Easy boss battle: no timer, enrage ----
-            gc.difficulty = Difficulty.Easy;
+            // ---- new minions & a boss ----
+            string[] mobs = { "paper_bat", "bone_soldier", "crypt_ghoul", "glitch_imp", "crystal_beetle" };
+            for (int i = 0; i < mobs.Length; i++)
+            {
+                gc.StartBattleEncounter(mobs[i], false);
+                yield return Wait(0.9f);
+                if (gc.TourDialogOpen) Skip();
+                gc.ExecuteBasicAttack();
+                yield return UntilQuestion();
+                yield return Wait(0.2f);
+                yield return Shot($"4{i}_{mobs[i]}");
+            }
             gc.StartBattleEncounter("the_abyss_golem", true);
             yield return Wait(1.0f);
+            if (gc.TourDialogOpen) Skip();
             gc.AnalyzeMonster();
-            yield return Wait(0.4f);
-            yield return Shot("20_analyze");
+            yield return Wait(0.3f);
+            yield return Shot("46_monster_info");
             gc.CloseAnalyze();
-            yield return Wait(1.4f);
-            yield return Shot("21_easy_question");
-            gc.monsterHp = gc.monsterMaxHp / 2 + 5;
-            gc.SubmitAnswer(gc.currentQuestion.correctIndex);
-            yield return Wait(1.0f);
-            yield return Shot("22_enrage");
 
-            gc.StartBattleEncounter("entropy_chaos_king", true);
-            yield return Wait(1.2f);
-            yield return Shot("23_final_boss");
-
-            // ---- victory ----
             gc.StartBattleEncounter("corrupted_slime", false);
             yield return Wait(1.0f);
             gc.monsterHp = 1;
             gc.ExecuteBasicAttack();
-            yield return Wait(2.6f);
-            yield return Shot("24_victory");
+            yield return UntilPhase(BattlePhase.BattleWon, 5f);
+            yield return Wait(0.3f);
+            yield return Shot("47_victory");
 
             // ---- windows ----
-            gc.TourSet("guide", 5); yield return Wait(0.3f); yield return Shot("30_guide_defend");
-            gc.TourSet("guide", 7); yield return Wait(0.3f); yield return Shot("31_guide_status");
-            gc.TourSet("guide", 8); yield return Wait(0.3f); yield return Shot("32_guide_monsters");
-            gc.TourSet("codex", 0, 4); yield return Wait(0.3f); yield return Shot("33_codex");
-            gc.TourSet("codex", 1, 12); gc.TourSet("bestiaryAnim", 1); yield return Wait(0.5f); yield return Shot("34_bestiary");
-            gc.TourSet("shop", 0); yield return Wait(0.3f); yield return Shot("35_shop");
-            gc.TourSet("modal", (int)ModalOverlay.TeacherAnalytics); yield return Wait(0.3f); yield return Shot("36_teacher");
-            gc.TourSet("modal", (int)ModalOverlay.Settings); yield return Wait(0.3f); yield return Shot("37_settings");
+            gc.TourSet("modal", (int)ModalOverlay.Pause); yield return Wait(0.3f); yield return Shot("50_pause");
+            gc.TourSet("guide", 3); yield return Wait(0.3f); yield return Shot("51_guide_map");
+            gc.TourSet("guide", 5); yield return Wait(0.3f); yield return Shot("52_guide_defend");
+            gc.TourSet("codex", 1, 1); gc.TourSet("bestiaryAnim", 1); yield return Wait(0.5f); yield return Shot("53_bestiary");
+            gc.TourSet("shop", 0); yield return Wait(0.3f); yield return Shot("54_shop");
 
             yield return Wait(0.5f);
             Application.Quit();

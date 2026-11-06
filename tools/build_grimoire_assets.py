@@ -1115,5 +1115,12 @@ def build_all():
 
     print(f"[SUCCESS] Generated {count} pixel-art & audio assets in:\n  - {unity_gen}\n  - {godot_gen}")
 
+    # v2: animated hero/monster sheets, NPCs, VFX & themed array pieces.
+    # Runs last so the redrawn characters replace the v1 single-frame sprites.
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import grimoire_art_v2
+    m = grimoire_art_v2.build_v2([unity_gen, godot_gen], godot_sprites)
+    print(f"[SUCCESS] v2 animation sheets: {sum(len(v) for v in m.values())} across {len(m)} actors")
+
 if __name__ == '__main__':
     build_all()

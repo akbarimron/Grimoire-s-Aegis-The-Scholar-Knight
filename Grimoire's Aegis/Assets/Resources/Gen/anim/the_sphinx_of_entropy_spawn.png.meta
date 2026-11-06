@@ -1,0 +1,1205 @@
+fileFormatVersion: 2
+guid: 5e657cf8adbbe014b899d8b59d2d6d92
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5141196012387859358
+    second: the_sphinx_of_entropy_spawn_0
+  - first:
+      213: -4775137654455180938
+    second: the_sphinx_of_entropy_spawn_1
+  - first:
+      213: -9009448394724230198
+    second: the_sphinx_of_entropy_spawn_2
+  - first:
+      213: 4352423185110267144
+    second: the_sphinx_of_entropy_spawn_3
+  - first:
+      213: -7372892484546220912
+    second: the_sphinx_of_entropy_spawn_4
+  - first:
+      213: -8188368765748884522
+    second: the_sphinx_of_entropy_spawn_5
+  - first:
+      213: -2206961617058784593
+    second: the_sphinx_of_entropy_spawn_6
+  - first:
+      213: -7609193632547884655
+    second: the_sphinx_of_entropy_spawn_7
+  - first:
+      213: 7057290113122865497
+    second: the_sphinx_of_entropy_spawn_8
+  - first:
+      213: 3953822147148593949
+    second: the_sphinx_of_entropy_spawn_9
+  - first:
+      213: -1502796017157685197
+    second: the_sphinx_of_entropy_spawn_10
+  - first:
+      213: 2446681970053523239
+    second: the_sphinx_of_entropy_spawn_11
+  - first:
+      213: -620716759293811332
+    second: the_sphinx_of_entropy_spawn_12
+  - first:
+      213: -8079948279116904152
+    second: the_sphinx_of_entropy_spawn_13
+  - first:
+      213: -3157026910354133662
+    second: the_sphinx_of_entropy_spawn_14
+  - first:
+      213: -7673844193165384644
+    second: the_sphinx_of_entropy_spawn_15
+  - first:
+      213: 6606403706667832339
+    second: the_sphinx_of_entropy_spawn_16
+  - first:
+      213: 8657849169233862679
+    second: the_sphinx_of_entropy_spawn_17
+  - first:
+      213: 7588018029278902481
+    second: the_sphinx_of_entropy_spawn_18
+  - first:
+      213: 1947224521556028208
+    second: the_sphinx_of_entropy_spawn_19
+  - first:
+      213: 4384131192925239387
+    second: the_sphinx_of_entropy_spawn_20
+  - first:
+      213: -6233787767805027187
+    second: the_sphinx_of_entropy_spawn_21
+  - first:
+      213: -732912326853228564
+    second: the_sphinx_of_entropy_spawn_22
+  - first:
+      213: -908266851817325605
+    second: the_sphinx_of_entropy_spawn_23
+  - first:
+      213: 7792513433775570355
+    second: the_sphinx_of_entropy_spawn_24
+  - first:
+      213: -7499344805572951965
+    second: the_sphinx_of_entropy_spawn_25
+  - first:
+      213: 8574733391075624758
+    second: the_sphinx_of_entropy_spawn_26
+  - first:
+      213: -5021897158881470914
+    second: the_sphinx_of_entropy_spawn_27
+  - first:
+      213: 1291601506235985240
+    second: the_sphinx_of_entropy_spawn_28
+  - first:
+      213: 246214247756919649
+    second: the_sphinx_of_entropy_spawn_29
+  - first:
+      213: 7455826288098179742
+    second: the_sphinx_of_entropy_spawn_30
+  - first:
+      213: -8563895538241980107
+    second: the_sphinx_of_entropy_spawn_31
+  - first:
+      213: 3230025687401793657
+    second: the_sphinx_of_entropy_spawn_32
+  - first:
+      213: -3463798353065538731
+    second: the_sphinx_of_entropy_spawn_33
+  - first:
+      213: 277885400053100177
+    second: the_sphinx_of_entropy_spawn_34
+  - first:
+      213: 5711390261646812437
+    second: the_sphinx_of_entropy_spawn_35
+  - first:
+      213: -7076062340204502597
+    second: the_sphinx_of_entropy_spawn_36
+  - first:
+      213: 5761557333999199993
+    second: the_sphinx_of_entropy_spawn_37
+  - first:
+      213: 3686114794437780307
+    second: the_sphinx_of_entropy_spawn_38
+  - first:
+      213: 8216852119788188362
+    second: the_sphinx_of_entropy_spawn_39
+  - first:
+      213: 2729565232089172577
+    second: the_sphinx_of_entropy_spawn_40
+  - first:
+      213: -2002552664099892283
+    second: the_sphinx_of_entropy_spawn_41
+  - first:
+      213: 3923359275110190740
+    second: the_sphinx_of_entropy_spawn_42
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 3
+        width: 87
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9b7807b882395740800000000000000
+      internalID: 5141196012387859358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_1
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 55
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6716b906a9d4bbdb0800000000000000
+      internalID: -4775137654455180938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_2
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 56
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acbbf3a4b6208f280800000000000000
+      internalID: -9009448394724230198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_3
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 2
+        width: 63
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 805fba4a3d9e66c30800000000000000
+      internalID: 4352423185110267144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_4
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 56
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09ca97b39593ea990800000000000000
+      internalID: -7372892484546220912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_5
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 55
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6db42abcdf11d5e80800000000000000
+      internalID: -8188368765748884522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_6
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 56
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: faa1a4e2a1c4f51e0800000000000000
+      internalID: -2206961617058784593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_7
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 2
+        width: 61
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 191b1d8d4b6b66690800000000000000
+      internalID: -7609193632547884655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_8
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 56
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 951909d77f780f160800000000000000
+      internalID: 7057290113122865497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_9
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 55
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1b3dd96b4cced630800000000000000
+      internalID: 3953822147148593949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_10
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 56
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 330c17b0cfef42be0800000000000000
+      internalID: -1502796017157685197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_11
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 2
+        width: 60
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 727a467e94c54f120800000000000000
+      internalID: 2446681970053523239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_12
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 56
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7529286565c267f0800000000000000
+      internalID: -620716759293811332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_13
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 55
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82945bb79d14edf80800000000000000
+      internalID: -8079948279116904152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_14
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 56
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26d2efd60ccff24d0800000000000000
+      internalID: -3157026910354133662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_15
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 29
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c34eea43d57018590800000000000000
+      internalID: -7673844193165384644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_16
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 35
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31492c24b29aeab50800000000000000
+      internalID: 6606403706667832339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_17
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 36
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 710681bb2fbd62870800000000000000
+      internalID: 8657849169233862679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_18
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 2
+        width: 62
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d8bd60d13e0e4960800000000000000
+      internalID: 7588018029278902481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_19
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 47
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03be641b26ee50b10800000000000000
+      internalID: 1947224521556028208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_20
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 31
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b58b403871097dc30800000000000000
+      internalID: 4384131192925239387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_21
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 38
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8c5ece9d032d79a0800000000000000
+      internalID: -6233787767805027187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_22
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 39
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce788623f1c24d5f0800000000000000
+      internalID: -732912326853228564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_23
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 22
+        width: 7
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdb7a284c103563f0800000000000000
+      internalID: -908266851817325605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_24
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 32
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bdf6a77ea1942c60800000000000000
+      internalID: 7792513433775570355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_25
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 32
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36047afe1a9fce790800000000000000
+      internalID: -7499344805572951965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_26
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 28
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6374eba96929ff670800000000000000
+      internalID: 8574733391075624758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_27
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 20
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3693522423ae4ab0800000000000000
+      internalID: -5021897158881470914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_28
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 30
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85d2e8a0ab0bce110800000000000000
+      internalID: 1291601506235985240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_29
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 20
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 163f038cd8aba6300800000000000000
+      internalID: 246214247756919649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_30
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 26
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9a7c11a18a687760800000000000000
+      internalID: 7455826288098179742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_31
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 17
+        width: 22
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 539b885a16ee62980800000000000000
+      internalID: -8563895538241980107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_32
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 29
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97888f0df3b53dc20800000000000000
+      internalID: 3230025687401793657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_33
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 7
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55b02f7ffbd1eefc0800000000000000
+      internalID: -3463798353065538731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_34
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 20
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19eae6e8c4f3bd300800000000000000
+      internalID: 277885400053100177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_35
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 16
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5156517ce2fe24f40800000000000000
+      internalID: 5711390261646812437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_36
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 7
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb1679bcac6cccd90800000000000000
+      internalID: -7076062340204502597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_37
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 11
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f6a1168ed925ff40800000000000000
+      internalID: 5761557333999199993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_38
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 3
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 353a6cb20e5b72330800000000000000
+      internalID: 3686114794437780307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_39
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 2
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac2f3ebd77f180270800000000000000
+      internalID: 8216852119788188362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_40
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 2
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16a8ee1ed1d51e520800000000000000
+      internalID: 2729565232089172577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_41
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 9
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c3505446f08534e0800000000000000
+      internalID: -2002552664099892283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: the_sphinx_of_entropy_spawn_42
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 3
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49e4d2f4972927630800000000000000
+      internalID: 3923359275110190740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,955 @@
+fileFormatVersion: 2
+guid: 8c19a954aacb40b4eb61a3eafe3349b2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1300561703958793233
+    second: entropy_chaos_king_death_0
+  - first:
+      213: 8648599098267042516
+    second: entropy_chaos_king_death_1
+  - first:
+      213: -2201902746429843761
+    second: entropy_chaos_king_death_2
+  - first:
+      213: -5674147708551623350
+    second: entropy_chaos_king_death_3
+  - first:
+      213: 2876578419356636740
+    second: entropy_chaos_king_death_4
+  - first:
+      213: -5715423138924129336
+    second: entropy_chaos_king_death_5
+  - first:
+      213: 7657923875355418271
+    second: entropy_chaos_king_death_6
+  - first:
+      213: -5488506715233958741
+    second: entropy_chaos_king_death_7
+  - first:
+      213: -7546363038513271464
+    second: entropy_chaos_king_death_8
+  - first:
+      213: 255705922569502107
+    second: entropy_chaos_king_death_9
+  - first:
+      213: 8745484714848628156
+    second: entropy_chaos_king_death_10
+  - first:
+      213: 8601839720840123169
+    second: entropy_chaos_king_death_11
+  - first:
+      213: 6000327334070924827
+    second: entropy_chaos_king_death_12
+  - first:
+      213: -8912103346678609951
+    second: entropy_chaos_king_death_13
+  - first:
+      213: 2486342258372669402
+    second: entropy_chaos_king_death_14
+  - first:
+      213: -4714081694706400809
+    second: entropy_chaos_king_death_15
+  - first:
+      213: -3616071900127385466
+    second: entropy_chaos_king_death_16
+  - first:
+      213: -4472233532840510416
+    second: entropy_chaos_king_death_17
+  - first:
+      213: 303406430447220246
+    second: entropy_chaos_king_death_18
+  - first:
+      213: 1891296800497324095
+    second: entropy_chaos_king_death_19
+  - first:
+      213: -1623959896747395334
+    second: entropy_chaos_king_death_20
+  - first:
+      213: -7190255790873518378
+    second: entropy_chaos_king_death_21
+  - first:
+      213: 6797535463943013511
+    second: entropy_chaos_king_death_22
+  - first:
+      213: -5033548132785319866
+    second: entropy_chaos_king_death_23
+  - first:
+      213: -2748344414854454466
+    second: entropy_chaos_king_death_24
+  - first:
+      213: 6511454417526083820
+    second: entropy_chaos_king_death_25
+  - first:
+      213: -7779597649505905046
+    second: entropy_chaos_king_death_26
+  - first:
+      213: -3692989126863868317
+    second: entropy_chaos_king_death_27
+  - first:
+      213: 8961099839726859442
+    second: entropy_chaos_king_death_28
+  - first:
+      213: -9138952041874969633
+    second: entropy_chaos_king_death_29
+  - first:
+      213: -5944102413811094198
+    second: entropy_chaos_king_death_30
+  - first:
+      213: -1983541707403397047
+    second: entropy_chaos_king_death_31
+  - first:
+      213: -496400838571725416
+    second: entropy_chaos_king_death_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 0
+        width: 57
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11cc0f4aaf58c0210800000000000000
+      internalID: 1300561703958793233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_1
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 0
+        width: 57
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d288f0ce0ff50870800000000000000
+      internalID: 8648599098267042516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_2
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 0
+        width: 69
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc697194e154171e0800000000000000
+      internalID: -2201902746429843761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_3
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 0
+        width: 61
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4d0fa4d8b06141b0800000000000000
+      internalID: -5674147708551623350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_4
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 44
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4469e46e4d8abe720800000000000000
+      internalID: 2876578419356636740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_5
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 51
+        width: 37
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c3116fcfecbea0b0800000000000000
+      internalID: -5715423138924129336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_6
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 43
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9eda83f039664a60800000000000000
+      internalID: 7657923875355418271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_7
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 43
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba4422bc838e4d3b0800000000000000
+      internalID: -5488506715233958741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_8
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 25
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85d674f7ccee54790800000000000000
+      internalID: -7546363038513271464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_9
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 27
+        width: 26
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9df7b98e237c8300800000000000000
+      internalID: 255705922569502107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_10
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 40
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbd292933043e5970800000000000000
+      internalID: 8745484714848628156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_11
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 19
+        width: 25
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 123558fc6afdf5770800000000000000
+      internalID: 8601839720840123169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_12
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 25
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b163d535be1754350800000000000000
+      internalID: 6000327334070924827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_13
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 25
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e7c6ab7939d15480800000000000000
+      internalID: -8912103346678609951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_14
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 24
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adf685c5c13418220800000000000000
+      internalID: 2486342258372669402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_15
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 26
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d18ad8cca7349eb0800000000000000
+      internalID: -4714081694706400809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_16
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 25
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 688a2aef3c121ddc0800000000000000
+      internalID: -3616071900127385466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_17
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 32
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03c737afb4f6fe1c0800000000000000
+      internalID: -4472233532840510416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_18
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 29
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 616306d7a8ae53400800000000000000
+      internalID: 303406430447220246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_19
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 17
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f30d9766b6c3f3a10800000000000000
+      internalID: 1891296800497324095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_20
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 0
+        width: 27
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af634e8f3198679e0800000000000000
+      internalID: -1623959896747395334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_21
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 19
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ded9cc2474173c90800000000000000
+      internalID: -7190255790873518378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_22
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 17
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78481745d72b55e50800000000000000
+      internalID: 6797535463943013511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_23
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 22
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 640108164ae352ab0800000000000000
+      internalID: -5033548132785319866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_24
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 15
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e33eb28e05bebd9d0800000000000000
+      internalID: -2748344414854454466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_25
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 7
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce05ac72b455d5a50800000000000000
+      internalID: 6511454417526083820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_26
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 7
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a669cb5e721590490800000000000000
+      internalID: -7779597649505905046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_27
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 12
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36e26e594fddfbcc0800000000000000
+      internalID: -3692989126863868317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_28
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 5
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b4bab783d83c5c70800000000000000
+      internalID: 8961099839726859442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_29
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 4
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdb26b4c98beb2180800000000000000
+      internalID: -9138952041874969633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_30
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 2
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4d6f3c095e428da0800000000000000
+      internalID: -5944102413811094198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_31
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 1
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9487c0d835b0974e0800000000000000
+      internalID: -1983541707403397047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: entropy_chaos_king_death_32
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 0
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89de9be311e6c19f0800000000000000
+      internalID: -496400838571725416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

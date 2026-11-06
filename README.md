@@ -48,6 +48,44 @@ Di kerajaan **Technosophia**, perpustakaan agung **The Grand Library of Alexandr
 6. **Mode Guru (*Teacher Analytics & CSV Telemetry Export*):**
    - Pelacakan akurasi per-TP, waktu jawab rata-rata, skor *Pre-Test* / *Post-Test*, kalkulasi **N-Gain**, dan ekspor laporan `.csv` (`user://teacher_report_grimoires_aegis.csv`).
 
+### Art & Animasi v2 (`tools/grimoire_art_v2.py`, `grimoire_monsters_v2.py`, `grimoire_extras_v2.py`)
+Semua karakter digambar ulang per frame (bukan hanya digeser) dengan ramp warna hue-shift, satu sumber cahaya kiri-atas, dan selective outline.
+
+| Aktor | Ukuran frame | Animasi |
+| :--- | :---: | :--- |
+| **Aegis, The Scholar Knight** | 48×48 | `idle` 4f, `walk` 6f, `attack` 6f (antisipasi → smear → follow-through), `defend` 3f, `parry` 4f (perisai heksagonal + counter), `cast` 6f (Grimoire terbuka), `hurt` 3f, `victory` 4f, `death` 6f |
+| 9 monster biasa + Twin-Faced Librarian | 48×48 | `idle` 4f, `attack` 5f (pola serangan meniru algoritmanya, GDD §9), `hurt` 3f, `death` 6f (*Glitch dissolve*) |
+| Blind Archivist, Abyss Golem, Sphinx, Entropy | 64×64 | sama seperti di atas |
+| NPC: Archivist Lyra, Mordecai, Bayang-bayang Ordo | 64×64 | potret `idle` dengan kedip |
+| VFX | 64×64 | `slash`, `hex_shield`, `shatter`, `arcane`, `spark`, `heal`, `poison` |
+| Objek array bertema (GDD §17) | 16 px lebar | buku (Act I), lilin (Act II), kristal (Act III) — tinggi mengikuti nilai |
+
+Sheet disimpan sebagai strip horizontal di `Resources/Gen/anim/`, `vfx/`, `npc/`, `array/`; durasi tiap frame ada di `anim/anim_index.json` dan dibaca otomatis oleh Unity (`GrimoireBattleFx.cs`).
+
+### Active Defend sesuai GDD §7
+- **Perfect Guard**: benar & sisa waktu ≥ 60% → 0 damage, counter-attack, +1 *Logic Fragment*, Panic −1 (“AEGIS ACTIVE!”).
+- **Guard**: benar & sisa waktu < 60% → 0 damage (MISS).
+- **Break**: salah/waktu habis → damage = min(3×ATK musuh − DEF, 50% HP maks), +1 Panic (maks 3: teks bergetar → tepi layar gelap → urutan tombol diacak).
+- Monster membeku di tengah ayunan (*bullet-time*) saat soal muncul; timer baru berjalan setelah **masa baca 1,5 detik**; tepi layar berdenyut merah saat sisa waktu ≤ 30%; timer +1 detik saat HP < 20%.
+
+### Tingkat Kesulitan
+| Mode | Timer | Damage Break maks | Lainnya |
+| :--- | :--- | :---: | :--- |
+| **Mudah** | **Tanpa batas waktu** — jawab selama yang kamu mau | 25% HP | Jawaban benar selalu Perfect Guard, Hint 5 MP, monster −10% HP |
+| **Sedang** | Normal (mode *Scholar* GDD) | 50% HP | Masa baca 1,5 detik |
+| **Sulit** | −20%, masa baca 1 detik | 50% HP | Monster +15% HP & ATK, Analisis tidak menampilkan topik |
+
+Mode dipilih saat *Petualangan Baru* dan bisa diganti kapan saja di **Pengaturan [O]** (juga: pengali timer 1.0–2.0×, DDA on/off, getar layar, volume).
+
+### GUI bergaya *Lost in Multiverse RPG*
+Semua layar digambar di kanvas piksel **640×360** yang diperbesar dengan skala bulat (tajam di layar apa pun), memakai font piksel 5×7 dan panel 9-slice (`tools/grimoire_ui_v2.py`, `UI/PixelUI.cs`):
+- **Judul** → pilih kesulitan / Act → **kartu Act** → **papan labirin** (dadu beranimasi, token berjalan, tooltip petak) → **pertarungan** (panel Kondisi kiri-atas, papan nama + HP monster, HUD 3 kolom: potret & bar, daftar aksi berikon, catatan pertarungan).
+- Soal tampil di **perkamen** dengan timer, objek array bertema, dan 4 pilihan; hasil, Kilas Codex (Bayang-bayang Ordo), Analisis musuh, dan layar hadiah memakai pop-up yang sama.
+- **Buku Panduan [G]** 13 bab (kontrol, papan, pertarungan, Active Defend, mode, semua status effect, 13 monster beranimasi, mantra, item, format soal, panduan guru), **Codex & Bestiary [C]** dengan pemutar animasi tiap monster, **Toko Mordecai / Tas [I]**, **Laporan Guru [T]**, **Pengaturan [O]**, dan menu **Jeda [Esc]**.
+
+### Status Effect
+Racun, Bisu, Halaman Robek, Buta, Terkubur, Remuk, Terbelah, Segel Kematian, Panik (debuff); Insertion Ward, Adrenalin, Limit Siap (buff); Terurut, Ditandai, Zirah Batu, Regenerasi, Murka, Kabut, Pivot Palsu (pada monster). Tiap efek punya ikon, sisa giliran, tooltip, dan entri di Buku Panduan. Skeleton Archer menembak 3 panah (3 soal) dan Bookworm menggigit 2× sesuai GDD §9.
+
 ---
 
 ## Cara Menjalankan Proyek (Unity 6 — `Grimoire's Aegis/` & Godot 4.7+)
@@ -77,8 +115,13 @@ Di kerajaan **Technosophia**, perpustakaan agung **The Grand Library of Alexandr
 
 | Tombol | Fungsi |
 | :---: | :--- |
-| **`1` – `5`** | Memilih aksi komando giliran atau memilih opsi jawaban **A / B / C / D** |
-| **`Tab`** | Membuka / menutup **Codex Grimoire** (*In-Game Algorithm Encyclopedia*) |
-| **`N`** | Lompat ke pertarungan monster berikutnya (*Gauntlet Testing*) |
-| **`T`** | Membuka **Teacher Analytics Report** & ekspor **CSV Telemetry** |
-| **`R`** | Mengatur ulang pertarungan / membangkitkan karakter |
+| **Panah / WASD** | Pilih menu; di papan: melangkah ke petak tetangga |
+| **Enter / Spasi** | Konfirmasi; di papan: Spasi lempar dadu, Enter berhenti di petak |
+| **`1` – `5`** | Aksi cepat pertarungan (Serang, Grimoire, Item, Analisis, Kabur) |
+| **`1` – `4`** | Memilih jawaban soal · **`H`** Scholar's Hint |
+| **`G`** | Buku Panduan |
+| **`C`** | Codex & Bestiary |
+| **`I`** | Tas & Toko (di luar pertarungan) |
+| **`T`** | Laporan Guru & ekspor CSV |
+| **`O`** | Pengaturan (kesulitan, timer, DDA, efek layar, audio) |
+| **`Esc`** | Tutup jendela / Jeda |
